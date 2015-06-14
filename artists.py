@@ -7,7 +7,10 @@ import math
 import config
 import requests
 import time
+import numpy as np
 import fileinput
+import os.path
+import pickle, pprint
 
 ITEMS_PER_PAGE = 50.
 
@@ -15,7 +18,7 @@ d = discogs_client.Client('Networker/0.1', user_token=config.token)
 
 me = d.identity()
 
-artist_name = "Danny Brown"
+artist_name = "Childish Gambino"
 print artist_name
 results = d.search(artist_name)
 
@@ -24,15 +27,34 @@ print "Discogs Name: "+artist.name
 print "Artist ID: "+str(artist.id)
 count = artist.releases.count
 pages = int(math.ceil(count/ITEMS_PER_PAGE))
-print count
-print pages
+print "Number of items: "+str(count)
+print "Number of pages: "+str(pages)
 
-all_releases = []
-for ii in range(1, pages+1):
-    all_releases += artist.releases.page(ii)
+if os.path.exists('all_releases\\'+artist_name+'.pkl') == False:
+    all_releases = []
+    print "Creating all releases"
+    for ii in range(1, pages+1):
+        all_releases += artist.releases.page(ii)
+    print "Writing releases to disk"
+    output = open('all_releases\\'+artist_name+'.pkl', 'wb')
+    pickle.dump(all_releases, output, -1)
+    output.close()
+else:
+    print "Release list exists"
+    _input = open('all_releases\\'+artist_name+'.pkl', 'rb')
+    all_releases = pickle.load(_input)
+    pprint.pprint(all_releases)
+    _input.close()
+    print "Release list parsed in"
+
+print "Release list step complete"
 
 artist_releases = {}
-for ii in all_releases:
+MAX = len(all_releases)
+progress = [int(ii) for ii in np.linspace(0, MAX, 11)]
+pp = 0
+while pp < MAX:
+    ii = all_releases[pp]
     try:
         try:
             if (artist in ii.artists):
@@ -46,8 +68,12 @@ for ii in all_releases:
                                           "tracks": [{kk.title: [ll.id for ll in kk.artists]} for kk in ii.tracklist]}
     except requests.exceptions.SSLError:
         pass
+    if pp in progress:
+        print str((progress.index(pp)+1)*10)+"%"
 
-with open(artist_name+'.json', 'w') as outfile:
+    pp += 1
+
+with open('release_info\\'+artist_name+'.json', 'w') as outfile:
     json.dump(artist_releases, outfile)
 
 print "All done"
