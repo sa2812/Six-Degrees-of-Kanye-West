@@ -16,13 +16,12 @@ ITEMS_PER_PAGE = 50.
 
 d = discogs_client.Client('Networker/0.1', user_token=config.token)
 
-me = d.identity()
-
-artist_name = "Kanye West"
+artist_name = "Ace Hood"
 print artist_name
 results = d.search(artist_name)
 
 artist = results[0]
+artist_name = artist.name
 print "Discogs Name: "+artist.name
 print "Artist ID: "+str(artist.id)
 count = artist.releases.count
