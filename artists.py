@@ -28,14 +28,14 @@ all_releases = []
 for ii in range(1, pages+1):
     all_releases += artist.releases.page(ii)
 
-all_rel = []
-for ii in all_releases:
-    all_rel.append(ii.title)
+# all_rel = []
+# for ii in all_releases:
+#     all_rel.append(ii.title)
 
-with open(artist_name+'_releases.txt', 'w') as outfile:
-    json.dump(all_rel, outfile)
+# with open(artist_name+'_releases.txt', 'w') as outfile:
+#     json.dump(all_rel, outfile)
 
-print "Releases done"
+# print "Releases done"
 
 all_artists = {}
 for ii in all_releases:
@@ -47,12 +47,28 @@ for ii in all_releases:
     except requests.exceptions.SSLError:
         pass
 
-with open(artist_name+'_artists.txt', 'w') as outfile:
+with open(artist_name+'_artists.json', 'w') as outfile:
     json.dump(all_artists, outfile)
 
 print "Artists done"
 
 artist_releases = {}
+
+for ii in all_releases:
+    try:
+        try:
+            if (artist in ii.artists):
+                all_artists[ii.title] = [jj.name for jj in ii.artists]]
+        except AttributeError:
+            if (artist in ii.main_release.artists):
+                all_artists[ii.title] = [jj.name for jj in ii.main_release.artists]]
+    except requests.exceptions.SSLError:
+        pass
+
+with open(artist_name+'.json', 'w') as outfile:
+    json.dump(all_artists, outfile)
+# 3112
+print "All done"
 
 # for jj in all_releases:
 #     # try:
