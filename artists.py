@@ -18,7 +18,7 @@ d = discogs_client.Client('Networker/0.1', user_token=config.token)
 
 me = d.identity()
 
-artist_name = "Childish Gambino"
+artist_name = "Kanye West"
 print artist_name
 results = d.search(artist_name)
 
