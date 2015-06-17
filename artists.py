@@ -10,85 +10,108 @@ import time
 import numpy as np
 import fileinput
 import os.path
-import pickle, pprint
+import sys
+import pickle
 
 ITEMS_PER_PAGE = 50.
 
 d = discogs_client.Client('Networker/0.1', user_token=config.token)
 
-artist_name = "Childish Gambino"
+artist_name = "Nas"
 print artist_name
+
 results = d.search(artist_name)
 
-artist = results[0]
-artist_name = artist.name
-print "Discogs Name: "+artist.name
-print "Artist ID: "+str(artist.id)
-count = artist.releases.count
-pages = int(math.ceil(count/ITEMS_PER_PAGE))
-print "Number of items: "+str(count)
-print "Number of pages: "+str(pages)
+basic_done = False
+while not basic_done:
+    try:
+        artist = results[0]
+        artist_name = artist.name
+        count = artist.releases.count
+        pages = int(math.ceil(count/ITEMS_PER_PAGE))
+        print "Discogs Name: "+artist.name
+        print "Artist ID: "+str(artist.id)
+        print "Number of items: "+str(count)
+        print "Number of pages: "+str(pages)
+        basic_done = True
+    except requests.exceptions.SSLError:
+        pass
 
-if os.path.exists('matched_releases\\'+artist_name+'.pkl') == False:
-    all_releases = []
-    matched_releases = []
-    print "Creating all releases"
-    retries = 0
-    while retries < 10:
+all_releases = []
+matched_releases = []
+
+if os.path.exists('all_releases\\'+artist_name+'.pkl') == False:
+    success = False
+    while not success:
+        print "Compiling all associated releases"
         try:
             for ii in range(1, pages+1):
                 all_releases += artist.releases.page(ii)
-            print "Writing releases to disk"
-            for ii in all_releases:
+            success = True
+        except requests.exceptions.SSLError:
+            pass
+    print "All releases compiled"
+
+    output = open('all_releases\\'+artist_name+'.pkl', 'wb')
+    pickle.dump(all_releases, output, -1)
+    output.close()
+
+else:
+    _input = open('all_releases\\'+artist_name+'.pkl', 'rb')
+    all_releases = pickle.load(_input)
+    _input.close()
+    print "All releases imported from file"
+
+if os.path.exists('matched_releases\\'+artist_name+'.pkl') == False:
+    success = False
+    while not success:
+        print "Compiling releases by artist"
+        for ii in all_releases:
+            try:
                 try:
                     if artist in ii.artists:
                         matched_releases.append(ii)
                 except AttributeError:
                     if artist in ii.main_release.artists:
                         matched_releases.append(ii.main_release)
-            retries += 100
-        except requests.exceptions.SSLError:
-            pass
-        retries += 1
-    print retries
-    output1 = open('all_releases\\'+artist_name+'.pkl', 'wb')
-    pickle.dump(all_releases, output1, -1)
-    output1.close()
-    output2 = open('matched_releases\\'+artist_name+'.pkl', 'wb')
-    pickle.dump(matched_releases, output2, -1)
-    output2.close()
+                success = True
+            except (requests.exceptions.SSLError, requests.exceptions.ConnectionError):
+                pass
+
+    print "Releases by artist compiled"
+    output = open('matched_releases\\'+artist_name+'.pkl', 'wb')
+    pickle.dump(matched_releases, output, -1)
+    output.close()
 else:
     print "Release list exists"
     _input = open('matched_releases\\'+artist_name+'.pkl', 'rb')
-    all_releases = pickle.load(_input)
-    pprint.pprint(all_releases)
+    matched_releases = pickle.load(_input)
     _input.close()
     print "Release list parsed in"
 
-print all_releases
-
 print "Release list step complete"
 
-
 artist_releases = {}
-MAX = len(all_releases)
+MAX = len(matched_releases)
 progress = [int(ii) for ii in np.linspace(MAX/10, MAX, 10)]
 pp = 0
 while pp < MAX:
-    ii = all_releases[pp]
-    try:
+    ii = matched_releases[pp]
+    step_complete = False
+    while not step_complete:
         try:
-            if (artist in ii.artists):
+            try:
                 artist_releases[ii.id] = {"title": ii.title,
                                           "artists": [jj.id for jj in ii.artists],
                                           "tracks": [{kk.title: [ll.id for ll in kk.artists]} for kk in ii.tracklist]}
-        except AttributeError:
-            if (artist in ii.main_release.artists):
+                step_complete = True
+            except AttributeError:
                 artist_releases[ii.id] = {"title": ii.title,
                                           "artists": [jj.id for jj in ii.main_release.artists],
                                           "tracks": [{kk.title: [ll.id for ll in kk.artists]} for kk in ii.tracklist]}
-    except requests.exceptions.SSLError:
-        pass
+                step_complete = True
+        except requests.exceptions.SSLError:
+            pass
     if pp in progress:
         print str((progress.index(pp)+1)*10)+"%"
 
