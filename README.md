@@ -1,7 +1,5 @@
 #Six Degrees of Kanye West
-
 ---
-
 This is just a working title until I come up with one that sticks.
 
 Currently the `artists.py` file serves as the main tool for collecting data. It searches the Discogs databases for all releases associated with the artist and then from those finds all the songs that the artist released.
