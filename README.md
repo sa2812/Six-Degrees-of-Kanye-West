@@ -2,6 +2,8 @@
 
 This is just a working title until I come up with one that sticks.
 
-Currently the `artists.py` file serves as the main tool for collecting data. It searches the Discogs databases for all releases associated with the artist and then from those finds all the songs that the artist released.
+The `spotify.py` uses the [`Spotipy`](https://github.com/plamere/spotipy) package to access the [Spotify API](https://developer.spotify.com/web-api/).
 
-Eventually this will be used to create a big network of all the artist's songs and the connections between them to see how many degrees of separation there are between different artists. For now the scope is limited to just hip-hop but over time new genres will hopefully be added and a lot of exciting functionality is also on the way.
+From here, information on artists is collected and saved to a database, the structure of which is still being decided.
+
+From the database, a network will be created and this will allow all sorts of analytics to take place relating to the network of artists.
