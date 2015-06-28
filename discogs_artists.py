@@ -13,7 +13,7 @@ import math
 import time
 import sys
 
-d = discogs_client.Client('Networker/0.1', user_token=config.token)
+d = discogs_client.Client('Networker/0.1', user_token=config.discogs_token)
 
 artist_name = "Outkast"
 print artist_name
@@ -114,9 +114,10 @@ class Artist:
         if os.path.exists('release_info\\'+self.artist.name+'.json'):
             print "All done"
         else:
+            MAX = len(self.matched_releases)
             progress = [int(ii) for ii in np.linspace(MAX/10, MAX, 10)]
             pp = 0
-            while pp < len(self.matched_releases):
+            while pp < MAX:
                 ii = self.matched_releases[pp]
                 step_complete = False
                 while not step_complete:
