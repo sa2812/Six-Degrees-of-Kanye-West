@@ -2,15 +2,17 @@ import spotify
 import sqlite3
 
 artist = spotify.TrackCollector("Kanye West")
+print artist.name
 a = artist.ft_artists
 
-conn = sqlite3.connect('%s.db' % artist.id)
+conn = sqlite3.connect('release_info.db')
 
 c = conn.cursor()
 
-c.execute('''DROP TABLE albums''')
-
-c.execute('''CREATE TABLE albums (song_name text, song_id text, song_artists text, song_artists_ids text)''')
+try:
+	c.execute('''CREATE TABLE albums (song_name text, song_id text, song_artists text, song_artists_ids text)''')
+except:
+	pass
 
 for ii in a:
 	artist_ids  = []
@@ -25,4 +27,3 @@ for ii in a:
 conn.commit()
 
 conn.close()
-

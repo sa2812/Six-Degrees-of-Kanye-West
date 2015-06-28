@@ -32,7 +32,14 @@ class TrackCollector:
 			results = sp.next(results)
 			albums.extend(results['items'])
 
-		return albums
+		album_names = []
+		non_dupl_albums = []
+		for ii in albums:
+			if ii['name'] not in album_names:
+				album_names.append(ii['name'])
+				non_dupl_albums.append(ii)
+				
+		return non_dupl_albums
 
 	def get_all_album_tracks(self):
 		all_songs = []
