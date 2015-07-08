@@ -7,7 +7,6 @@ print artist.name
 a = artist.ft_artists
 
 conn = sqlite3.connect('release_info.db')
-
 c = conn.cursor()
 
 try:
@@ -26,5 +25,4 @@ for ii in a:
 	c.execute("INSERT INTO albums (song_name, song_id, song_artists, song_artists_ids) VALUES (?, ?, ?, ?)", (ii['name'], ii['id'], artist_list, artist_ids))
 
 conn.commit()
-
 conn.close()
