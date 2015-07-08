@@ -47,4 +47,4 @@ Temporary Items
 config.py
 config.pyc
 
-.sunny
+*.cache-amrat.sunny

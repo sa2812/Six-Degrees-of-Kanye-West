@@ -3,17 +3,7 @@ import config
 import spotipy
 import spotipy.util as util
 
-SPOTIPY_CLIENT_ID = config.spotify_id
-SPOTIPY_CLIENT_SECRET = config.spotify_secret
-SPOTIPY_REDIRECT_URI='https://github.com/sa2812/Six-Degrees-of-Kanye-West'
-
-token = util.prompt_for_user_token(config.username,
-	                               config.scope,
-	                               client_id = SPOTIPY_CLIENT_ID,
-	                               client_secret = SPOTIPY_CLIENT_SECRET,
-	                               redirect_uri = SPOTIPY_REDIRECT_URI)
-
-sp = spotipy.Spotify(auth=token)
+sp = spotipy.Spotify(auth=config.token)
 
 class TrackCollector:
 	def __init__(self, name):
