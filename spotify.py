@@ -1,15 +1,25 @@
-import sys
 import config
 import spotipy
 import spotipy.util as util
+import sys
 
 sp = spotipy.Spotify(auth=config.token)
 
 class TrackCollector:
-	def __init__(self, name):
+	def __init__(self, name=None, identity=None, uri=None):
 		self.name = name
-		self.artist_uri = sp.search(q='artist:' + name,
-			                        type='artist')['artists']['items'][0]['uri']
+		self.id   = identity
+		self.uri  = uri
+		if uri:
+			self.artist_uri = uri
+		elif name:
+			self.artist_uri = sp.search(q='artist:' + name,
+			                            type='artist')['artists']['items'][0]['uri']
+		elif identity:
+			self.artist_uri = sp.search(q='id:' + identity,
+				                        type='artist')['artists']['items'][0]['uri']
+		else:
+			raise TypeError
 		self.albums     = self.get_all_albums()
 		self.all_songs  = self.get_all_album_tracks()
 		self.ft_artists = self.get_all_featured_artists()
@@ -50,5 +60,3 @@ class TrackCollector:
 				featured_artists.append(ii)
 
 		return featured_artists
-
-a = TrackCollector("Kanye West")

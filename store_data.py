@@ -1,7 +1,7 @@
 import spotify
 import sqlite3
 
-artist = spotify.TrackCollector("Kanye West")
+artist = spotify.TrackCollector(name="Kanye West")
 print artist.name
 a = artist.ft_artists
 
