@@ -1,7 +1,11 @@
 import spotify
 import sqlite3
 
+<<<<<<< HEAD
 artist = spotify.TrackCollector(name="Kanye West")
+=======
+artist = spotify.TrackCollector("Kanye West")
+>>>>>>> 2493d1e733808994354559b1a3d097a7068c7ee0
 print artist.name
 a = artist.ft_artists
 
