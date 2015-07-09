@@ -10,12 +10,17 @@ class TrackCollector:
 	def __init__(self, name=None, identity=None, uri=None):
 		if uri:
 			self.artist_uri = uri
+			self.name = sp.search(q='uri:' + uri,
+				                  type='artist')['artists']['items'][0]['name']
 		elif name:
+			self.name = name
 			self.artist_uri = sp.search(q='artist:' + name,
 			                            type='artist')['artists']['items'][0]['uri']
 		elif identity:
 			self.artist_uri = sp.search(q='id:' + identity,
 				                        type='artist')['artists']['items'][0]['uri']
+			self.name = sp.search(q='artist:' + name,
+				                  type='artist')['artists']['items'][0]['name']
 		else:
 			raise TypeError
 		self.albums     = self.get_all_albums()
