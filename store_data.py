@@ -7,7 +7,8 @@ featured = artist.ft_artists
 
 
 @db_wrapper
-def store_data_fn(c):
+def featured_info(c):
+	"""Adds featured artists and their songs to the database."""
 	try:
 		c.execute("""CREATE TABLE albums (song_name text, 
 			                              song_id text, 
@@ -27,7 +28,8 @@ def store_data_fn(c):
 		c.execute("""INSERT INTO albums (song_name, 
 			                             song_id, 
 			                             song_artists, 
-			                             song_artists_ids) VALUES (?, ?, ?, ?)""",
+			                             song_artists_ids)
+		             VALUES (?, ?, ?, ?)""",
 		          (ii['name'], ii['id'], artist_list, artist_ids))
 
 
