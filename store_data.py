@@ -3,6 +3,7 @@ from itertools import permutations
 import networkx as nx
 import spotify
 import matplotlib.pyplot as plt
+import random
 
 
 @db_wrapper
@@ -57,12 +58,32 @@ def featured_info(c, artist, graph):
     #           (artist.name, artist.artist_uri, ft_names, ft_uris))
 
 
-G = nx.read_gpickle("graph.pkl")
-artist = spotify.TrackCollector(name="Paul McArtney")
+try:
+    G = nx.read_gpickle("graph.pkl")
+except IOError:
+    G = nx.Graph()
+artist = spotify.TrackCollector(name="Vic Mensa")
 featured_info(artist, G)
-nx.spring_layout(G)
-nx.draw_networkx(G, node_size=10, node_color='b', node_shape='x', width=0.2, with_labels=True)
-plt.show()
 nx.write_gpickle(G, "graph.pkl")
-# print G.nodes()
+list_artists = G.nodes()
+num_songs   = len(G.edges())
+a = random.choice(list_artists)
+b = random.choice(list_artists)
+print a
+print b
+try:
+    temp = nx.shortest_path(G, source=a, target=b)
+    edges = []
+    ii = 0
+    while ii < len(temp)-1:
+        edges.append((temp[ii], temp[ii+1]))
+        ii += 1
+    for jj in edges:
+        print G.get_edge_data(*jj)
+    try:
+        print "The shortest path is %d and is: %s" % (len(temp), ", ".join(temp).encode('utf-8'))
+    except UnicodeEncodeError:
+        print "The shortest path is %d \#encodeerror" % len(temp)
+except nx.exception.NetworkXNoPath:
+    print "No path between %s and %s" % (a, b)
 
