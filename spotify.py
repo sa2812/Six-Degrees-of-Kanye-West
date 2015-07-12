@@ -17,19 +17,21 @@ class TrackCollector:
 				                  type='artist')['artists']['items'][0]['name']
 			self.artist_uri = uri
 		elif name:
-			self.name = name
+			self.name = sp.search(q='artist:' + name,
+				                  type='artist')['artists']['items'][0]['name']
 			self.artist_uri = sp.search(q='artist:' + name,
 			                            type='artist')['artists']['items'][0]['uri']
 		elif identity:
-			self.name = sp.search(q='artist:' + name,
+			self.name = sp.search(q='id:' + identity,
 				                  type='artist')['artists']['items'][0]['name']
 			self.artist_uri = sp.search(q='id:' + identity,
 				                        type='artist')['artists']['items'][0]['uri']
 		else:
 			raise TypeError
-		self.albums     = self.get_all_albums()
-		self.all_songs  = self.get_all_album_tracks()
-		self.ft_artists = self.get_all_featured_artists()
+		self.albums        = self.get_all_albums()
+		self.all_songs     = self.get_all_album_tracks()
+		self.song_features = self.get_song_features()
+		self.ft_artists, self.ft_names, self.ft_uris = self.get_all_featured_artists()
 
 	def get_all_albums(self):
 		"""Gets all of the artist's releases on Spotify."""
@@ -62,11 +64,27 @@ class TrackCollector:
 
 		return all_songs
 
-	def get_all_featured_artists(self):
+	def get_song_features(self):
 		"""Gets all the artists who have featured on album songs."""
-		featured_artists = []
+		song_features = []
 		for ii in self.all_songs:
 			if len(ii['artists']) > 1:
-				featured_artists.append(ii)
+				song_features.append(ii)
 
-		return featured_artists
+		return song_features
+
+	def get_all_featured_artists(self):
+		"""Gets all the artists who have featured on album songs."""
+		featured_artists_names = []
+		featured_artists_uris  = []
+		featured_artists       = []
+		for ii in self.all_songs:
+			if len(ii['artists']) > 1:
+				for jj in ii['artists']:
+					if jj['name'] != self.name:
+						if jj['name'] not in featured_artists_names:
+							featured_artists_names.append(jj['name'])
+							featured_artists_uris.append(jj['uri'])
+							featured_artists.append(jj)
+
+		return featured_artists, featured_artists_names, featured_artists_uris
