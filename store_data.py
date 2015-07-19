@@ -53,6 +53,9 @@ for ii in artist_list:
     except MemoryError:
         continue
     mgraph = populate_graph(artist, multi_graph)
+    json_data = json_graph.node_link_data(mgraph)
+    with open('multi.json', 'w') as jsonfile:
+        json.dump(json_data, jsonfile)
     nx.write_gpickle(mgraph, "multi.pkl")
     mark_as_done(ii[1])
     count += 1
