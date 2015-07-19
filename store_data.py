@@ -38,8 +38,8 @@ print "Artists remaining: {}".format(remaining)
 try:
     multi_graph = nx.read_gpickle("multi.pkl")
 except IOError:
-    nx.write_gpickle(nx.MultiDiGraph(), "multi.pkl")
-
+    multi_graph = nx.MultiDiGraph()
+    nx.write_gpickle(multi_graph, "multi.pkl")
 
 count = 0
 for ii in artist_list:
