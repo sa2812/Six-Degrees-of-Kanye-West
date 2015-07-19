@@ -1,4 +1,6 @@
 import networkx as nx
+from networkx.readwrite import json_graph
+import json
 import spotify
 import matplotlib.pyplot as plt
 import gc
@@ -38,7 +40,7 @@ print "Artists remaining: {}".format(remaining)
 try:
     multi_graph = nx.read_gpickle("multi.pkl")
 except IOError:
-    multi_graph = nx.MultiDiGraph()
+    multi_graph = nx.MultiGraph()
     nx.write_gpickle(multi_graph, "multi.pkl")
 
 count = 0
