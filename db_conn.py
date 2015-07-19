@@ -23,7 +23,8 @@ def db_wrapper(function):
     """
     def wrapper(*args, **kwargs):
         conn, c = open_conn()
-        function(c, *args, **kwargs)
+        f = function(c, *args, **kwargs)
         close_conn(conn)
+        return f
 
     return wrapper

@@ -1,0 +1,4 @@
+Äcnetworkx.classes.multidigraph
+MultiDiGraph
+q)Åq}q(Unodeq}Ugraphq}Usuccq}qUedgeqhUpredq	}Uadjq
+hub.

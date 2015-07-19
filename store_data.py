@@ -1,36 +1,57 @@
-from db_conn import *
-from itertools import permutations
 import networkx as nx
 import spotify
 import matplotlib.pyplot as plt
-import random
+import gc
+
+from db_conn import *
+from itertools import permutations
 
 
-def featured_info(artist, graph, g):
+def populate_graph(artist, mgraph):
     """Adds featured artists and their songs to the database."""
-    graph.add_node(artist.name)
+    mgraph.add_node(artist.artist_uri)
     for ii in artist.song_features:
-        artist_ids  = []
         artist_list = []
         for jj in ii['artists']:
-            artist_ids.append(jj['id'])
-            artist_list.append(jj['name'])
-            graph.add_node(jj['name'])
-            g.add_node(jj['name'])
+            artist_list.append(jj['uri'])
+            mgraph.add_node(jj['uri'])
         perms = permutations(artist_list, 2)
         for pair in perms:
-            graph.add_edge(*pair, song_name=ii['name'], song_id=ii['id'])
-            g.add_edge(*pair, song_name=ii['name'], song_id=ii['id'])
-        artist_ids  = ",".join(artist_ids)
-        artist_list = ",".join(artist_list)
+            mgraph.add_edge(*pair, song_id=ii['id'])
 
-try:
-    G = nx.read_gpickle("graph.pkl")
-    g = nx.read_gpickle("graph1.pkl")
-except IOError:
-    G = nx.MultiDiGraph()
-    g = nx.Graph()
-artist = spotify.TrackCollector(name="Jay Z")
-featured_info(artist, G, g)
-nx.write_gpickle(G, "graph.pkl")
-nx.write_gpickle(G, "graph1.pkl")
+    return mgraph
+
+@db_wrapper
+def get_artist_info(c):
+    c.execute("SELECT artist_list.'artist', artist_list.'uri' FROM artist_list WHERE artist_list.'done' IS NULL")
+    return c.fetchall()
+
+@db_wrapper
+def mark_as_done(c, artist):
+    c.execute("UPDATE artist_list SET done=1 WHERE uri='{}'".format(artist))
+    return
+
+artist_list = get_artist_info()
+remaining = len(artist_list)
+print "Artists remaining: {}".format(remaining)
+
+nx.write_gpickle(nx.MultiDiGraph(), "multi.pkl")
+
+multi_graph = nx.read_gpickle("multi.pkl")
+
+count = 0
+for ii in artist_list:
+    try:
+        try:
+            artist = spotify.TrackCollector(name=ii[0])
+        except IndexError:
+            continue
+    except MemoryError:
+        continue
+    mgraph = populate_graph(artist, multi_graph)
+    nx.write_gpickle(mgraph, "multi.pkl")
+    mark_as_done(ii[1])
+    count += 1
+    print "Artists remaining: {}".format(remaining - count)
+
+    gc.collect()
