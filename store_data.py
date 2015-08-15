@@ -54,10 +54,8 @@ for ii in artist_list:
         continue
     mgraph = populate_graph(artist, multi_graph)
     json_data = json_graph.node_link_data(mgraph)
-    if count%5 == 0:
-        with open('multi.json', 'w') as jsonfile:
-            json.dump(json_data, jsonfile)
-        nx.write_gpickle(mgraph, "multi.pkl")
+    with open('multi.json', 'w') as jsonfile:
+        json.dump(json_data, jsonfile)
     mark_as_done(ii[1])
     count += 1
     print "Artists remaining: {}".format(remaining - count)
