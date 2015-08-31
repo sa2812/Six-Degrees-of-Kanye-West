@@ -53,3 +53,4 @@ config.pyc
 *.pkl
 multi.json
 *.db
+test.py
