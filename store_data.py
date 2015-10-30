@@ -1,12 +1,10 @@
-import networkx as nx
-from networkx.readwrite import json_graph
-import json
-import spotify
-import matplotlib.pyplot as plt
-import gc
-
-from db_conn import *
 from itertools import permutations
+import matplotlib.pyplot as plt
+import networkx as nx
+from db_conn import *
+import spotify
+import json
+import gc
 
 
 def populate_graph(artist, mgraph):
@@ -23,15 +21,20 @@ def populate_graph(artist, mgraph):
 
     return mgraph
 
-@db_wrapper
-def get_artist_info(c):
-    c.execute("SELECT artist_list.'artist', artist_list.'uri' FROM artist_list WHERE artist_list.'done' IS NULL")
-    return c.fetchall()
 
 @db_wrapper
-def mark_as_done(c, artist):
-    c.execute("UPDATE artist_list SET done=1 WHERE uri='{}'".format(artist))
+def get_artist_info(c):
+    c.execute("""SELECT artist_list.'artist', artist_list.'uri'
+                 FROM artist_list
+                 WHERE artist_list.'done' IS NULL""")
+    return c.fetchall()
+
+
+@db_wrapper
+def mark_as_done(c, uri):
+    c.execute("UPDATE artist_list SET done=1 WHERE uri='{}'".format(uri))
     return
+
 
 artist_list = get_artist_info()
 remaining = len(artist_list)
@@ -44,21 +47,20 @@ except IOError:
     nx.write_gpickle(multi_graph, "multi.pkl")
 
 count = 0
-for ii in artist_list:
+for artist, uri in artist_list:
     try:
         try:
-            artist = spotify.TrackCollector(name=ii[0])
+            spotify_artist = spotify.TrackCollector(name=artist)
+            multi_graph    = populate_graph(spotify_artist, multi_graph)
+            nx.write_gpickle(multi_graph, "multi.pkl")
+            mark_as_done(uri)
         except IndexError:
             continue
     except MemoryError:
         continue
-    mgraph = populate_graph(artist, multi_graph)
-    json_data = json_graph.node_link_data(mgraph)
-    with open('multi.json', 'wb') as jsonfile:
-        json.dump(json_data, jsonfile)
-    nx.write_gpickle(mgraph, "multi.pkl")
-    mark_as_done(ii[1])
-    count += 1
     print "Artists remaining: {}".format(remaining - count)
+    count += 1
+    if count > 2:
+        break
 
-    gc.collect()
+    # gc.collect()
