@@ -1,4 +1,4 @@
-#Six Degrees of Kanye West
+##Six Degrees of Kanye West
 
 This is just a working title until I come up with one that sticks.
 
