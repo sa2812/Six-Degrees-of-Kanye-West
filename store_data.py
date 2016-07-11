@@ -50,7 +50,7 @@ count = 0
 for artist, uri in artist_list:
     try:
         try:
-            spotify_artist = spotify.TrackCollector(name=artist)
+            spotify_artist = spotify.ArtistInfo(name=artist)
             multi_graph    = populate_graph(spotify_artist, multi_graph)
             nx.write_gpickle(multi_graph, "multi.pkl")
             mark_as_done(uri)
@@ -60,7 +60,5 @@ for artist, uri in artist_list:
         continue
     print "Artists remaining: {}".format(remaining - count)
     count += 1
-    if count > 2:
-        break
 
     # gc.collect()

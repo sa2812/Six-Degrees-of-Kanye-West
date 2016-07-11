@@ -1,0 +1,143 @@
+(dp0
+VBeyoncé
+p1
+I01
+sVLil Wayne
+p2
+I01
+sVNicki Minaj
+p3
+I01
+sVGod
+p4
+I01
+sVGLC
+p5
+I01
+sVNas
+p6
+I01
+sVRhymefest
+p7
+I01
+sVPusha T
+p8
+I01
+sVJAY Z
+p9
+I01
+sVSwizz Beatz
+p10
+I01
+sVReally Doe
+p11
+I01
+sVBrandy
+p12
+I01
+sVChris Martin
+p13
+I01
+sVKid Cudi
+p14
+I01
+sVAdam Levine
+p15
+I01
+sVMos Def
+p16
+I01
+sVJohn Legend
+p17
+I01
+sVOtis Redding
+p18
+I01
+sVRZA
+p19
+I01
+sVJ. Ivy
+p20
+I01
+sVCam'Ron
+p21
+I01
+sVBon Iver
+p22
+I01
+sVMr Hudson
+p23
+I01
+sVFreeway
+p24
+I01
+sVAlbe Back
+p25
+I01
+sVPaul Wall
+p26
+I01
+sVRick Ross
+p27
+I01
+sVCommon
+p28
+I01
+sVConsequence
+p29
+I01
+sVJeezy
+p30
+I01
+sVCurtis Mayfield
+p31
+I01
+sVLupe Fiasco
+p32
+I01
+sVDJ Premier
+p33
+I01
+sVPrynce Cy Hi
+p34
+I01
+sVKanye West
+p35
+I1
+sVFrank Ocean
+p36
+I01
+sVLudacris
+p37
+I01
+sVTalib Kweli
+p38
+I01
+sVRaekwon
+p39
+I01
+sVThe Game
+p40
+I01
+sVThe Boys Choir Of Harlem
+p41
+I01
+sVJamie Foxx
+p42
+I01
+sVTwista
+p43
+I01
+sVT-Pain
+p44
+I01
+sVQ-Tip
+p45
+I01
+sVThe-Dream
+p46
+I01
+sVSyleena Johnson
+p47
+I01
+s.

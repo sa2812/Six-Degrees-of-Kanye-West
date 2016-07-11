@@ -1,14 +1,11 @@
-import config
 import spotipy
-import spotipy.util as util
 import sys
-import time
 
 
-sp = spotipy.Spotify(auth=config.token)
+sp = spotipy.Spotify()
 
 
-class TrackCollector:
+class ArtistInfo:
 	"""
 	Collects all the albums, songs and featured artists for an artist.
 	"""
@@ -31,8 +28,7 @@ class TrackCollector:
 			raise TypeError
 		self.albums        = self.get_all_albums()
 		self.all_songs     = self.get_all_album_tracks()
-		self.song_features = self.get_song_features()
-		self.ft_artists, self.ft_names, self.ft_uris = self.get_all_featured_artists()
+		self.ft_artists    = self.get_all_featured_artists()
 
 	def get_all_albums(self):
 		"""Gets all of the artist's releases on Spotify."""
@@ -65,27 +61,24 @@ class TrackCollector:
 
 		return all_songs
 
-	def get_song_features(self):
+	def get_song_features(self, song):
 		"""Gets all the artists who have featured on album songs."""
-		song_features = []
-		for ii in self.all_songs:
-			if len(ii['artists']) > 1:
-				song_features.append(ii)
-
-		return song_features
+		if len(song['artists']) > 1:
+			return(song['artists'])
+		else:
+			return False
 
 	def get_all_featured_artists(self):
 		"""Gets all the artists who have featured on album songs."""
-		featured_artists_names = []
-		featured_artists_uris  = []
-		featured_artists       = []
-		for ii in self.all_songs:
-			if len(ii['artists']) > 1:
-				for jj in ii['artists']:
-					if jj['name'] != self.name:
-						if jj['name'] not in featured_artists_names:
-							featured_artists_names.append(jj['name'])
-							featured_artists_uris.append(jj['uri'])
-							featured_artists.append(jj)
+		featured_artists = []
+		for song in self.all_songs:
+			ft = self.get_song_features(song)
+			if ft:
+				featured_artists.extend(ft)
+		featured_artists[:] = [artist for artist in featured_artists if artist['name']!=self.name]
+				# for jj in ii['artists']:
+				# 	if jj['name'] != self.name:
+				# 		if jj['name'] not in featured_artists_names:
+				# 			featured_artists.append(jj)
 
-		return featured_artists, featured_artists_names, featured_artists_uris
+		return featured_artists
