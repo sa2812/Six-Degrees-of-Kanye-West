@@ -27,7 +27,6 @@ def gen_artist_list(c, name, gen_limit=7, start=0):
                 'generation': 0}
     with open('gen0.pkl', 'ab') as pklfile:
         pickle.dump(_artist, pklfile)
-
     c.execute("INSERT INTO artist_list VALUES (?, ?, ?, ?)",
               (current_artist['name'], current_artist['id'], current_artist['uri'], 0))
     try:
@@ -36,7 +35,6 @@ def gen_artist_list(c, name, gen_limit=7, start=0):
         artist_details = {current_artist['name']: 1}
     max_gen = 0
 
-    # for artist in artists:
     f = open('gen{}.pkl'.format(start), 'rb')
     while True:
         try:
@@ -76,4 +74,5 @@ def gen_artist_list(c, name, gen_limit=7, start=0):
             pickle.dump(artist_details, open('artist_details.pkl', 'wb'))
             break
 
-gen_artist_list("Kanye West")
+for ii in range(8):
+    gen_artist_list("Kanye West", start=ii)
