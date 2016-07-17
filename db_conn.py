@@ -1,5 +1,6 @@
 import sqlite3
 
+
 def open_conn():
     """Opens database connection."""
     conn = sqlite3.connect("release_info.db")

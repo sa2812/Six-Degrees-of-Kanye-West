@@ -42,4 +42,14 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+#Config files
+
+config.py
+config.pyc
+
+*.cache-amrat.sunny
+
 *.pyc
+*.pkl
+multi.json
+*.db
