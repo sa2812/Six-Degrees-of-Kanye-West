@@ -2,7 +2,6 @@ import networkx as nx
 from networkx.readwrite import json_graph
 import json
 import spotify
-import matplotlib.pyplot as plt
 import gc
 
 from db_conn import *
