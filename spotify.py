@@ -1,11 +1,9 @@
-import config
 import spotipy
-import spotipy.util as util
 import sys
 import time
 
 
-sp = spotipy.Spotify(auth=config.token)
+sp = spotipy.Spotify()
 
 
 class TrackCollector:

@@ -1,8 +1,13 @@
 import networkx as nx
-import matplotlib.pyplot as plt
 import pickle
+import spotipy
 
-fl = file('multi.pkl', 'rb')
-pkl = pickle.load(fl)
+f = open('multi.pkl', 'rb')
+g = pickle.load(f)
 
-print type(pkl)
+sp = spotipy.Spotify()
+
+kanye_uri = "spotify:artist:5K4W6rqBFWDnAN6FQUkS6x"
+
+for ii in nx.all_neighbors(g, kanye_uri):
+	print sp.artist(ii)['name']
