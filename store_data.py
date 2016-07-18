@@ -46,7 +46,7 @@ for ii in artist_list:
     try:
         try:
             artist = spotify.TrackCollector(name=ii[0])
-        except IndexError:
+        except (IndexError, ValueError) as e:
             continue
     except MemoryError:
         continue
