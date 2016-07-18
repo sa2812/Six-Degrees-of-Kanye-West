@@ -64,7 +64,7 @@ for ii in artist_list:
         with open('multi.pkl', 'wb') as f:
             pickle.dump(mgraph, f)
         with open('multi.json', 'wb') as jsonfile:
-            jsonfile.dump(json_data, jsonfile)
+            json.dump(json_data, jsonfile)
     except KeyError:
         continue
     mark_as_done(ii[1])
