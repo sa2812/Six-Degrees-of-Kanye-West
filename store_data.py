@@ -59,11 +59,12 @@ for ii in artist_list:
     except MemoryError:
         continue
     mgraph = populate_graph(artist, multi_graph)
+    json_data = json_graph.node_link_data(mgraph)
     try:
         with open('multi.pkl', 'wb') as f:
             pickle.dump(mgraph, f)
-        with open('multi.json', 'wb') as f_:
-            f_.write(json_graph.node_link_data(multi_graph))
+        with open('multi.json', 'wb') as jsonfile:
+            jsonfile.dump(json_data, jsonfile)
     except KeyError:
         continue
     mark_as_done(ii[1])
