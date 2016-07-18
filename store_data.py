@@ -36,10 +36,12 @@ remaining = len(artist_list)
 print "Artists remaining: {}".format(remaining)
 
 try:
-    multi_graph = nx.read_gpickle("multi.pkl")
+    f = open('multi.pkl', 'rb')
+    multi_graph = pickle.load(f)
 except IOError:
     multi_graph = nx.MultiGraph()
-    nx.write_gpickle(multi_graph, "multi.pkl")
+    f = open('multi.pkl', 'wb')
+    pickle.dump(multi_graph, f)
 
 count = 0
 for ii in artist_list:
@@ -51,7 +53,8 @@ for ii in artist_list:
     except MemoryError:
         continue
     mgraph = populate_graph(artist, multi_graph)
-    nx.write_gpickle(mgraph, "multi.pkl")
+    with open('multi.pkl', 'wb') as f:
+        pickle.dump(mgraph, f)
     mark_as_done(ii[1])
     count += 1
     print "Artists remaining: {}".format(remaining - count)
