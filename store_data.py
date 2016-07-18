@@ -14,11 +14,11 @@ def populate_graph(artist, mgraph):
     for ii in artist.song_features:
         artist_list = []
         for jj in ii['artists']:
-            artist_list.append(jj['uri'])
-            mgraph.add_node(jj['uri'])
+            artist_list.append(jj['name'])
+            mgraph.add_node(jj['name'])
         perms = permutations(artist_list, 2)
         for pair in perms:
-            mgraph.add_edge(*pair, song_id=ii['id'])
+            mgraph.add_edge(*pair, song_id=ii['name'])
 
     return mgraph
 
