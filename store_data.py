@@ -1,6 +1,7 @@
 import networkx as nx
 import spotify 
 import pickle
+import sys
 import gc
 
 from db_conn import *
@@ -36,8 +37,12 @@ remaining = len(artist_list)
 print "Artists remaining: {}".format(remaining)
 
 try:
-    with open('multi.pkl', 'rb') as f:
-        multi_graph = pickle.load(f)
+    try:
+        with open('multi.pkl', 'rb') as f:
+            multi_graph = pickle.load(f)
+    except KeyError:
+        print "This is broken, investigate further"
+        sys.exit("There is an error")
 except IOError:
     multi_graph = nx.MultiGraph()
     with open('multi.pkl', 'wb') as f:
@@ -53,8 +58,11 @@ for ii in artist_list:
     except MemoryError:
         continue
     mgraph = populate_graph(artist, multi_graph)
-    with open('multi.pkl', 'wb') as f:
-        pickle.dump(mgraph, f)
+    try:
+        with open('multi.pkl', 'wb') as f:
+            pickle.dump(mgraph, f)
+    except KeyError:
+        continue
     mark_as_done(ii[1])
     count += 1
     print "Artists remaining: {}".format(remaining - count)
