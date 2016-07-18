@@ -16,7 +16,7 @@ def populate_graph(artist, mgraph):
     for ii in artist.song_features:
         artist_list = []
         for jj in ii['artists']:
-            artist_list.append(jj['uri'], name=jj['name'])
+            artist_list.append(jj['uri'])
             mgraph.add_node(jj['uri'], name=jj['name'])
         perms = permutations(artist_list, 2)
         for pair in perms:
@@ -48,8 +48,6 @@ except IOError:
     multi_graph = nx.MultiGraph()
     with open('multi.pkl', 'wb') as f:
         pickle.dump(multi_graph, f)
-    with open('multi.json', 'w') as f_:
-        f_.write(json_graph.node_link_data(multi_graph))
 
 count = 0
 for ii in artist_list:
