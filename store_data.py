@@ -1,6 +1,8 @@
 import networkx as nx
+from networkx.readwrite import json_graph
 import spotify 
 import pickle
+import json
 import sys
 import gc
 
@@ -14,11 +16,11 @@ def populate_graph(artist, mgraph):
     for ii in artist.song_features:
         artist_list = []
         for jj in ii['artists']:
-            artist_list.append(jj['name'])
-            mgraph.add_node(jj['name'])
+            artist_list.append(jj['uri'], name=jj['name'])
+            mgraph.add_node(jj['uri'], name=jj['name'])
         perms = permutations(artist_list, 2)
         for pair in perms:
-            mgraph.add_edge(*pair, song_id=ii['name'])
+            mgraph.add_edge(*pair, id=ii['id'], track=ii['name'])
 
     return mgraph
 
@@ -38,15 +40,16 @@ print "Artists remaining: {}".format(remaining)
 
 try:
     try:
-        with open('multi.pkl', 'rb') as f:
-            multi_graph = pickle.load(f)
-    except KeyError:
-        print "This is broken, investigate further"
-        sys.exit("There is an error")
+        multi_graph = pickle.load(open('multi.pkl', 'rb'))
+    except EOFError:
+        data = json_graph.node_link_data(open('multi.json', 'r'))
+        multi_graph = json_graph.node_link_graph(data)
 except IOError:
     multi_graph = nx.MultiGraph()
     with open('multi.pkl', 'wb') as f:
         pickle.dump(multi_graph, f)
+    with open('multi.json', 'w') as f_:
+        f_.write(json_graph.node_link_data(multi_graph))
 
 count = 0
 for ii in artist_list:
@@ -61,6 +64,8 @@ for ii in artist_list:
     try:
         with open('multi.pkl', 'wb') as f:
             pickle.dump(mgraph, f)
+        with open('multi.json', 'w') as f_:
+            f_.write(json_graph.node_link_data(multi_graph))
     except KeyError:
         continue
     mark_as_done(ii[1])
