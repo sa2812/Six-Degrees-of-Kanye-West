@@ -1,7 +1,7 @@
 import networkx as nx
 from networkx.readwrite import json_graph
 import json
-import spotify
+import spotifygit 
 import gc
 
 from db_conn import *
@@ -53,8 +53,8 @@ for ii in artist_list:
         continue
     mgraph = populate_graph(artist, multi_graph)
     json_data = json_graph.node_link_data(mgraph)
-    with open('multi.json', 'wb') as jsonfile:
-        json.dump(json_data, jsonfile)
+    # with open('multi.json', 'wb') as jsonfile:
+    #     json.dump(json_data, jsonfile)
     nx.write_gpickle(mgraph, "multi.pkl")
     mark_as_done(ii[1])
     count += 1
