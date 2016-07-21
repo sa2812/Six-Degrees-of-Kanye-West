@@ -19,8 +19,8 @@ def gen_artist_list(c, name):
                 'uri'       : artist['uri'],
                 'done'      : False,
                 'generation': 0}]
-    c.execute("INSERT INTO artist_list VALUES (?, ?, ?)",
-              (artist['name'], artist['id'], artist['uri']))
+    c.execute("INSERT INTO artist_list VALUES (?, ?, ?, ?)",
+              (artist['name'], artist['id'], artist['uri'], generation))
     artist_names = [artist['name']]
     max_gen = 0
 
@@ -51,4 +51,5 @@ def gen_artist_list(c, name):
         if max_gen > 7:
             break
 
-gen_artist_list("Timmy Titus")
+kanye_uri = "spotify:artist:5K4W6rqBFWDnAN6FQUkS6x"
+gen_artist_list("Kanye West")

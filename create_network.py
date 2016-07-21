@@ -37,9 +37,9 @@ def mark_as_done(c, artist):
                  WHERE uri='{}'""".format(artist))
     return
 
-count = 0
-while count < 10:
-    artist_list = get_artist_info()
+gen = 0
+while True:
+    
     try:
         with open('multi.pkl', 'rb') as f:
             graph = pickle.load(f)
