@@ -1,5 +1,6 @@
 from spotify import *
 from db_conn import *
+import gc
 
 
 @db_wrapper
@@ -59,3 +60,4 @@ while gen < 7:
                                         current_uri,
                                         song['id'])
     mark_as_done(current_uri)
+    gc.collect()
