@@ -46,7 +46,7 @@ while count < 10:
     except IOError:
         graph = nx.MultiGraph()
         with open('multi.pkl', 'wb') as f:
-            pickle.dump(multi_graph, f)
+            pickle.dump(graph, f)
 
     for ii in artist_list:
         artist = spotify.TrackCollector(name=ii[0])
