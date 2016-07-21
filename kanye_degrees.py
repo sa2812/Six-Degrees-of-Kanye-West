@@ -21,10 +21,10 @@ def create_table(c):
 
 @db_wrapper
 def get_artist_not_done(c):
-    c.execute("""SELECT kanye_degree.'name', kanye_degree.'uri'
+    c.execute("""SELECT kanye_degree.'name', kanye_degree.'uri', kanye_degree.'gen'
                  FROM kanye_degree
                  WHERE kanye_degree.'done'=0
-                 ORDER BY kanye_degree.'gen' DESC""")
+                 ORDER BY kanye_degree.'gen' ASC""")
     return c.fetchone()
 
 @db_wrapper
@@ -44,9 +44,9 @@ def mark_as_done(c, uri):
 
 create_table()
 
-gen = 0
-while True:
-    current_name, current_uri = get_artist_not_done()
+while gen < 7:
+    current_name, current_uri, current_gen = get_artist_not_done()
+    gen = current_gen + 1
     song_features = TrackCollector(name=current_name).song_features
     for song in song_features:
         for artist in song['artists']:
