@@ -37,6 +37,7 @@ def mark_as_done(c, artist):
                  WHERE uri='{}'""".format(artist))
     return
 
+count = 0
 while count < 10:
     artist_list = get_artist_info()
     try:
