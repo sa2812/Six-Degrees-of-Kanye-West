@@ -30,7 +30,7 @@ class TrackCollector:
 		self.albums        = self.get_all_albums()
 		self.all_songs     = self.get_all_album_tracks()
 		self.song_features = self.get_song_features()
-		self.ft_artists, self.ft_names, self.ft_uris = self.get_all_featured_artists()
+		# self.ft_artists, self.ft_names, self.ft_uris = self.get_all_featured_artists()
 
 	def get_all_albums(self):
 		"""Gets all of the artist's releases on Spotify."""
@@ -64,7 +64,7 @@ class TrackCollector:
 		return all_songs
 
 	def get_song_features(self):
-		"""Gets all the artists who have featured on album songs."""
+		"""Gets all the songs which have featured artists on them."""
 		song_features = []
 		for ii in self.all_songs:
 			if len(ii['artists']) > 1:
@@ -72,18 +72,18 @@ class TrackCollector:
 
 		return song_features
 
-	def get_all_featured_artists(self):
-		"""Gets all the artists who have featured on album songs."""
-		featured_artists_names = []
-		featured_artists_uris  = []
-		featured_artists       = []
-		for ii in self.all_songs:
-			if len(ii['artists']) > 1:
-				for jj in ii['artists']:
-					if jj['name'] != self.name:
-						if jj['name'] not in featured_artists_names:
-							featured_artists_names.append(jj['name'])
-							featured_artists_uris.append(jj['uri'])
-							featured_artists.append(jj)
+	# def get_all_featured_artists(self):
+	# 	"""Gets all the artists who have featured on album songs."""
+	# 	featured_artists_names = []
+	# 	featured_artists_uris  = []
+	# 	featured_artists       = []
+	# 	for ii in self.all_songs:
+	# 		if len(ii['artists']) > 1:
+	# 			for jj in ii['artists']:
+	# 				if jj['name'] != self.name:
+	# 					if jj['name'] not in featured_artists_names:
+	# 						featured_artists_names.append(jj['name'])
+	# 						featured_artists_uris.append(jj['uri'])
+	# 						featured_artists.append(jj)
 
-		return featured_artists, featured_artists_names, featured_artists_uris
+	# 	return featured_artists, featured_artists_names, featured_artists_uris
