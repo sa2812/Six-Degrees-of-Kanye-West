@@ -50,7 +50,8 @@ while gen < 2:
 	current_name, current_uri, current_gen = get_artist_not_done()
 	gen = current_gen + 1
 	song_features = TrackCollector(name=current_name).song_features
-	for song in song_features:
+	for s in song_features:
+		song = sp.track(s)
 		for artist in song['artists']:
 			if artist['uri'] != current_uri:
 				update_table_new_artist(artist['name'],
