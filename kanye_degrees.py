@@ -46,7 +46,7 @@ def mark_as_done(c, uri):
 create_table()
 
 gen = 0
-while gen < 2:
+while gen < 7:
 	current_name, current_uri, current_gen = get_artist_not_done()
 	gen = current_gen + 1
 	song_features = TrackCollector(name=current_name).song_features
