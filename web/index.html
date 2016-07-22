@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<title>Six Degrees Of Kanye West</title>
 	<link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
-<link rel="icon" href="static/img/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="static/img/favicon.ico" type="image/x-icon">
 	<link rel="stylesheet" href="static/css/foundation.css">
 	<link rel="stylesheet" href="static/css/app.css">
 	<link rel="stylesheet" href="static/css/style.css">
@@ -20,10 +20,11 @@
 		</div>
 	</div>
 	<div class="expanded row">
-		<div class="small-12 small-centered columns text-center">
+		<div class="small-12 columns text-center">
 			<form method="post">
 				<input type="text" class="artist" placeholder="Enter artist name" maxlength="30" onkeyup="Expand(this);"/>
-				<input type="submit" name="go" value="Submit" style="visibility:hidden"/>
+				<br>
+				<input type="submit" name="go" value="Submit" style="visibility:hidden;width:0px"/>
 			</form>
 		</div>
 	</div>
@@ -45,21 +46,30 @@
 			$('input,textarea').focus(function () {
 				$(this).data('placeholder', $(this).attr('placeholder'))
 				.attr('placeholder', '');
+				$(this).css('border', '0px solid #9B9B9B');
+				$(this).css('border-bottom-width', '3px');
 			}).blur(function () {
 				$(this).attr('placeholder', $(this).data('placeholder'));
+				if (!$(this).val()) {
+					$(this).css('border', '0px solid #CB5959');
+					$(this).css('border-bottom-width', '3px');
+				}
 			});
 		});
 
 		$(function() {
 			$("form input").keypress(function (e) {
 				if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
-					$('button[type=submit] .default').click();
-					console.log($(this).val());
-					$('.artist').val('');
-					return false;
+					if ($('input').val()) {
+						$('button[type=submit] .default').click();
+						console.log($(this).val());
+						$('.artist').val('');
+						return false;	
+					}
 				} else {
 					return true;
 				}
+				return false;
 			});
 		});
 	</script>
