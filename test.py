@@ -12,6 +12,4 @@ sp = spotipy.Spotify()
 
 kw = tracks.TrackCollector(name="Kanye West")
 
-album = sp.album(kw.albums[0])
-
-pprint.pprint(album['tracks'])
+print len(kw.song_features)

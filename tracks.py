@@ -42,9 +42,10 @@ class TrackCollector:
 		Gets all the songs which have featured artists on them.
 		"""
 		tracks = {}
-		for album in self.albums():
-			results = album['tracks']['items']
-			for track in results:
+		for a in self.albums:
+			album = sp.album(a)
+			results = album['tracks']
+			for track in results['items']:
 				if len(track['artists']) > 1:
 					current_track = {}
 					for artist in track['artists']:
@@ -54,5 +55,17 @@ class TrackCollector:
 						tracks[track['id']] = 1
 					except KeyError:
 						pass
+			while results['next']:
+				results = sp.next(results)
+				for track in results['items']:
+					if len(track['artists']) > 1:
+						current_track = {}
+						for artist in track['artists']:
+							current_track[artist['uri']] = 1
+						try:
+							current_track[self.artist_uri]
+							tracks[track['id']] = 1
+						except KeyError:
+							pass
 
 		return tracks.keys()

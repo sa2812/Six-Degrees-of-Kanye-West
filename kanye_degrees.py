@@ -1,4 +1,4 @@
-from spotify import *
+from tracks import *
 from db_conn import *
 import gc
 
@@ -46,7 +46,7 @@ def mark_as_done(c, uri):
 create_table()
 
 gen = 0
-while gen < 2:
+while gen < 3:
 	current_name, current_uri, current_gen = get_artist_not_done()
 	gen = current_gen + 1
 	song_features = TrackCollector(name=current_name).song_features
@@ -59,4 +59,5 @@ while gen < 2:
 										gen,
 										current_uri,
 										song['id'])
+				print artist['name']
 	mark_as_done(current_uri)
