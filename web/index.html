@@ -4,7 +4,9 @@
 	<meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<title>Foundation for Sites</title>
+	<title>Six Degrees Of Kanye West</title>
+	<link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
+<link rel="icon" href="static/img/favicon.ico" type="image/x-icon">
 	<link rel="stylesheet" href="static/css/foundation.css">
 	<link rel="stylesheet" href="static/css/app.css">
 	<link rel="stylesheet" href="static/css/style.css">
@@ -19,7 +21,10 @@
 	</div>
 	<div class="expanded row">
 		<div class="small-12 small-centered columns text-center">
-			<input type="text" class="artist" placeholder="Enter artist name" maxlength="30" onkeyup="Expand(this);"/>
+			<form method="post">
+				<input type="text" class="artist" placeholder="Enter artist name" maxlength="30" onkeyup="Expand(this);"/>
+				<input type="submit" name="go" value="Submit" style="visibility:hidden"/>
+			</form>
 		</div>
 	</div>
 
@@ -37,12 +42,25 @@
 		}
 
 		$(function () {
-		    $('input,textarea').focus(function () {
-		        $(this).data('placeholder', $(this).attr('placeholder'))
-		               .attr('placeholder', '');
-		    }).blur(function () {
-		        $(this).attr('placeholder', $(this).data('placeholder'));
-		    });
+			$('input,textarea').focus(function () {
+				$(this).data('placeholder', $(this).attr('placeholder'))
+				.attr('placeholder', '');
+			}).blur(function () {
+				$(this).attr('placeholder', $(this).data('placeholder'));
+			});
+		});
+
+		$(function() {
+			$("form input").keypress(function (e) {
+				if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+					$('button[type=submit] .default').click();
+					console.log($(this).val());
+					$('.artist').val('');
+					return false;
+				} else {
+					return true;
+				}
+			});
 		});
 	</script>
 </body>
