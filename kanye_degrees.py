@@ -62,3 +62,4 @@ while gen < 2:
 										song['id'])
 				print artist['name']
 	mark_as_done(current_uri)
+	print "\nMarked as done\n"
