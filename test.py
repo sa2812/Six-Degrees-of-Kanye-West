@@ -1,21 +1,17 @@
 import spotipy
+import tracks
+import pprint
 
 sp = spotipy.Spotify()
 
-kanye_uri = "spotify:artist:5K4W6rqBFWDnAN6FQUkS6x"
-targeturi = "spotify:artist:3nFkdlSjzX9mRTtwJOzDYB"
+# targeturi = "spotify:artist:3nFkdlSjzX9mRTtwJOzDYB"
 
-results = sp.artist_albums(kanye_uri)
+# results = sp.artist_albums(kanye_uri)
 
-artists = []
-count = 0
-while results['next']:
-	for ii in results['items']:
-		a = sp.album(ii['id'])
-		b = a['tracks']['items']
-		for jj in b:
-			print jj['name']
+# print results
 
-		print ""
+kw = tracks.TrackCollector(name="Kanye West")
 
-	break
+album = sp.album(kw.albums[0])
+
+pprint.pprint(album['tracks'])

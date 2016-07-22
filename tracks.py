@@ -19,9 +19,8 @@ class TrackCollector:
 		else:
 			raise TypeError
 
-		self.albums = []
-		self.all_songs     = self.get_all_album_tracks()
-		self.song_features = self.get_song_features()
+		self.albums = self.get_all_albums()
+		self.song_features = self.get_all_features()
 
 	def get_all_albums(self):
 		"""
@@ -35,39 +34,25 @@ class TrackCollector:
 			results = sp.next(results)
 			for album in results['items']:
 				albums[album['id']] = 1
-				
-		self.albums = albums.keys()
 
-	def get_all_album_tracks(self):
-		"""
-		Gets all the songs in each album.
-		"""
-		all_songs = []
-		ft_artists = {}
-		for album in self.albums:
-			all_tracks = album['tracks']
-			tracks = {}
-			for track in all_tracks:
-				if self.name in track['artists']:
-					
+		return albums.keys()
 
-		for ii in self.albums:
-			results = sp.album_tracks(ii['uri'])
-			album_songs = results['items']
-			while results['next']:
-				album_songs.extend(results['items'])
-			ii['tracklist'] = album_songs
-			all_songs.extend(album_songs)
-
-		return all_songs
-
-	def get_song_features(self):
+	def get_all_features(self):
 		"""
 		Gets all the songs which have featured artists on them.
 		"""
-		song_features = []
-		for ii in self.all_songs:
-			if len(ii['artists']) > 1:
-				song_features.append(ii)
+		tracks = {}
+		for album in self.albums():
+			results = album['tracks']['items']
+			for track in results:
+				if len(track['artists']) > 1:
+					current_track = {}
+					for artist in track['artists']:
+						current_track[artist['uri']] = 1
+					try:
+						current_track[self.artist_uri]
+						tracks[track['id']] = 1
+					except KeyError:
+						pass
 
-		return song_features
+		return tracks.keys()
