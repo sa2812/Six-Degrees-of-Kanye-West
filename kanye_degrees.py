@@ -43,23 +43,33 @@ def mark_as_done(c, uri):
 				 SET done=1
 				 WHERE uri='{}'""".format(uri))
 
+@db_wrapper
+def mark_as_error(c, uri):
+	c.execute("""UPDATE kanye_degree
+				 SET done=2
+				 WHERE uri='{}'""".format(uri))
+
 create_table()
 
 gen = 0
 while gen < 7:
 	current_name, current_uri, current_gen = get_artist_not_done()
 	gen = current_gen + 1
-	song_features = TrackCollector(name=current_name).song_features
-	for s in song_features:
-		song = sp.track(s)
-		for artist in song['artists']:
-			if artist['uri'] != current_uri:
-				update_table_new_artist(artist['name'],
-										artist['id'],
-										artist['uri'],
-										gen,
-										current_uri,
-										song['id'])
-				print artist['name'].encode('utf-8')
-	mark_as_done(current_uri)
-	print "\nMarked as done\n"
+	try:
+		song_features = TrackCollector(name=current_name).song_features
+		for s in song_features:
+			song = sp.track(s)
+			for artist in song['artists']:
+				if artist['uri'] != current_uri:
+					update_table_new_artist(artist['name'],
+											artist['id'],
+											artist['uri'],
+											gen,
+											current_uri,
+											song['id'])
+					print artist['name'].encode('utf-8')
+		mark_as_done(current_uri)
+		print "\nMarked as done\n"
+	except IndexError:
+		print "{} could not be added".format(current_name)
+		mark_as_error(current_uri)
