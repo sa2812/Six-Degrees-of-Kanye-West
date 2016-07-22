@@ -1,0 +1,49 @@
+<!doctype html>
+<html class="no-js" lang="en" dir="ltr">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>Foundation for Sites</title>
+	<link rel="stylesheet" href="static/css/foundation.css">
+	<link rel="stylesheet" href="static/css/app.css">
+	<link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+	<div class="expanded row">
+		<div class="small-12 columns text-center main-box">
+			<h1>SIX DEGREES</h1>
+			<h1>OF</h1>
+			<h1 class="kanye">KANYE WEST</h1>
+		</div>
+	</div>
+	<div class="expanded row">
+		<div class="small-12 small-centered columns text-center">
+			<input type="text" class="artist" placeholder="Enter artist name" maxlength="30" onkeyup="Expand(this);"/>
+		</div>
+	</div>
+
+
+	<script src="static/js/vendor/jquery.js"></script>
+	<script src="static/js/vendor/what-input.js"></script>
+	<script src="static/js/vendor/foundation.js"></script>
+	<script src="static/js/app.js"></script>
+	<script type="text/javascript">
+		function Expand(obj){
+			if ( $(window).width() > 1023) {
+				if (!obj.savesize) obj.savesize=obj.size;
+				obj.size=Math.max(obj.savesize,obj.value.length);
+			}
+		}
+
+		$(function () {
+		    $('input,textarea').focus(function () {
+		        $(this).data('placeholder', $(this).attr('placeholder'))
+		               .attr('placeholder', '');
+		    }).blur(function () {
+		        $(this).attr('placeholder', $(this).data('placeholder'));
+		    });
+		});
+	</script>
+</body>
+</html>
