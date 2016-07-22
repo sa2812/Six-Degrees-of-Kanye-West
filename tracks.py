@@ -43,7 +43,10 @@ class TrackCollector:
 		"""
 		tracks = {}
 		for a in self.albums:
-			album = sp.album(a)
+			try:
+				album = sp.album(a)
+			except ValueError:
+				continue
 			results = album['tracks']
 			for track in results['items']:
 				if len(track['artists']) > 1:
