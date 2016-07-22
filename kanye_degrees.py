@@ -60,6 +60,6 @@ while gen < 7:
 										gen,
 										current_uri,
 										song['id'])
-				print artist['name']
+				print artist['name'].encode('utf-8')
 	mark_as_done(current_uri)
 	print "\nMarked as done\n"
