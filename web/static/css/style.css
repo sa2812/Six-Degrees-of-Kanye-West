@@ -13,8 +13,8 @@
 }
 
 h1 {
-	font-family: vcr, 'Arial';
-	color: #5C5B5B;
+	font-family: vcr, 'Helvetica', 'Arial';
+	color: #3F3F3F;
 }
 
 input.artist
@@ -24,7 +24,7 @@ input.artist
     background-color: transparent;
     font-size: 3rem;
     font-family: vcr, 'Arial';
-    color: #767676;
+    color: #535353;
     text-align: center;
     text-transform: uppercase;
 }
@@ -40,4 +40,16 @@ select:focus,
 textarea:focus,
 button:focus {
     outline: none;
+}
+
+#submit {
+	visibility:hidden;
+	display:none;
+}
+
+::selection {
+  background: #f78c52; /* WebKit/Blink Browsers */
+}
+::-moz-selection {
+  background: #f78c52; /* Gecko Browsers */
 }

@@ -23,8 +23,7 @@
 		<div class="small-12 columns text-center">
 			<form method="post">
 				<input type="text" class="artist" placeholder="Enter artist name" maxlength="30" onkeyup="Expand(this);"/>
-				<br>
-				<input type="submit" name="go" value="Submit" style="visibility:hidden;width:0px"/>
+				<br><input type="submit" id="submit" name="go" value="Submit"/>
 			</form>
 		</div>
 	</div>
@@ -34,44 +33,5 @@
 	<script src="static/js/vendor/what-input.js"></script>
 	<script src="static/js/vendor/foundation.js"></script>
 	<script src="static/js/app.js"></script>
-	<script type="text/javascript">
-		function Expand(obj){
-			if ( $(window).width() > 1023) {
-				if (!obj.savesize) obj.savesize=obj.size;
-				obj.size=Math.max(obj.savesize,obj.value.length);
-			}
-		}
-
-		$(function () {
-			$('input,textarea').focus(function () {
-				$(this).data('placeholder', $(this).attr('placeholder'))
-				.attr('placeholder', '');
-				$(this).css('border', '0px solid #9B9B9B');
-				$(this).css('border-bottom-width', '3px');
-			}).blur(function () {
-				$(this).attr('placeholder', $(this).data('placeholder'));
-				if (!$(this).val()) {
-					$(this).css('border', '0px solid #CB5959');
-					$(this).css('border-bottom-width', '3px');
-				}
-			});
-		});
-
-		$(function() {
-			$("form input").keypress(function (e) {
-				if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
-					if ($('input').val()) {
-						$('button[type=submit] .default').click();
-						console.log($(this).val());
-						$('.artist').val('');
-						return false;	
-					}
-				} else {
-					return true;
-				}
-				return false;
-			});
-		});
-	</script>
 </body>
 </html>
