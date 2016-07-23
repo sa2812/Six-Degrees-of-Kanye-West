@@ -17,9 +17,9 @@ $(function () {
 	}).blur(function () {
 		$(this).attr('placeholder', $(this).data('placeholder'));
 		if (!$(this).val()) {
-			$(this).css('border', '0px solid #CB5959');
+			$(this).css('border', '0px solid #9B9B9B');
 			$(this).css('border-bottom-width', '3px');
-			$(this).css('text-color', '#CB5959');
+			$(this).css('text-color', '#9B9B9B');
 		}
 	});
 });

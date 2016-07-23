@@ -27,11 +27,19 @@ input.artist
     color: #535353;
     text-align: center;
     text-transform: uppercase;
+    max-width: 100%
 }
 
 @media only screen and (max-width: 1023px) {
     h1, input.artist {
-    	font-size: 2rem;
+    	font-size: 1.5rem;
+    }
+}
+
+@media only screen and (max-width: 1023px) {
+    input.artist {
+    	width: 100%;
+    	max-width: 100%;
     }
 }
 
