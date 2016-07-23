@@ -1,0 +1,43 @@
+@font-face {
+  font-family: vcr;
+  src: url(../fonts/vcr.ttf);
+  font-weight: 400;
+}
+
+/*.main-box {
+	margin-top: 100px;
+}*/
+
+.row {
+	padding-top: 60px;
+}
+
+h1 {
+	font-family: vcr, 'Arial';
+	color: #5C5B5B;
+}
+
+input.artist
+{
+    border: 0px solid #9B9B9B;
+    border-bottom-width: 3px;
+    background-color: transparent;
+    font-size: 3rem;
+    font-family: vcr, 'Arial';
+    color: #767676;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+@media only screen and (max-width: 1023px) {
+    h1, input.artist {
+    	font-size: 2rem;
+    }
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
