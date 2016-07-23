@@ -73,6 +73,6 @@ while gen < 7:
 					print artist['name'].encode('utf-8')
 		mark_as_done(current_uri)
 		print "\nMarked as done\n"
-	except IndexError:
+	except IndexError, TypeError:
 		print "{} could not be added".format(current_name)
 		mark_as_error(current_uri)
