@@ -56,7 +56,8 @@ while gen < 7:
 	current_name, current_uri, current_gen = get_artist_not_done()
 	gen = current_gen + 1
 	try:
-		song_features = TrackCollector(name=current_name).song_features
+		print current_name
+		song_features = TrackCollector(name=current_name.encode('utf-8')).song_features
 		for s in song_features:
 			try:
 				song = sp.track(s)
@@ -73,6 +74,6 @@ while gen < 7:
 					print artist['name'].encode('utf-8')
 		mark_as_done(current_uri)
 		print "\nMarked as done\n"
-	except (IndexError, TypeError) as e:
+	except IndexError:
 		print "{} could not be added".format(current_name)
 		mark_as_error(current_uri)
