@@ -14,7 +14,7 @@ class TrackCollector:
 		print name
 		artist = sp.search(q='artist:' + name,
 							  type='artist')['artists']['items'][0]['name']
-		print artist
+		print "".format(artist)
 		self.name = artist['name']
 		self.artist_uri = artist['uri']
 
