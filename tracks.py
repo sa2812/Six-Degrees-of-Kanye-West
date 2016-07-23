@@ -10,13 +10,12 @@ class TrackCollector:
 	"""
 	Collects all the albums, songs and featured artists for an artist.
 	"""
-	def __init__(self, name=None, uri=None):
-		print name
-		artist = sp.search(q='artist:' + name,
-							  type='artist')['artists']['items'][0]['name']
-		print "".format(artist)
+	def __init__(self, uri=None):
+		# artist = sp.search(q='artist:' + name,
+		# 					  type='artist')['artists']['items'][0]['name']
+		artist = sp.artist(uri)
 		self.name = artist['name']
-		self.artist_uri = artist['uri']
+		self.artist_uri = uri
 
 		self.albums = self.get_all_albums()
 		self.song_features = self.get_all_features()

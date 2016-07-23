@@ -56,7 +56,7 @@ while gen < 7:
 	current_name, current_uri, current_gen = get_artist_not_done()
 	gen = current_gen + 1
 	try:
-		song_features = TrackCollector(name=current_name.encode('utf-8')).song_features
+		song_features = TrackCollector(uri=current_uri).song_features
 		for s in song_features:
 			try:
 				song = sp.track(s)
