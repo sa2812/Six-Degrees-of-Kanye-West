@@ -61,3 +61,8 @@ button:focus {
 ::-moz-selection {
   background: #f78c52; /* Gecko Browsers */
 }
+
+.row {
+  word-wrap: break-word;
+  word-break: break-all;
+}

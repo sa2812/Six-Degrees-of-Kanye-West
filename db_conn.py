@@ -1,9 +1,11 @@
 import sqlite3
+import os
 
+db_dir = os.path.dirname(__file__)
 
 def open_conn():
     """Opens database connection."""
-    conn = sqlite3.connect("release_info.db")
+    conn = sqlite3.connect(db_dir+"/release_info.db")
     c = conn.cursor()
 
     return conn, c

@@ -1,15 +1,11 @@
-import spotipy
-import tracks
-import pprint
+from db_conn import *
 
-sp = spotipy.Spotify()
+@db_wrapper
+def search(c, artist):
+	c.execute("""SELECT uri
+				 FROM kanye_degree
+				 WHERE name LIKE ?
+		      	 """, ('%'+artist+'%',))
+	return c.fetchone()
 
-# targeturi = "spotify:artist:3nFkdlSjzX9mRTtwJOzDYB"
-
-# results = sp.artist_albums(kanye_uri)
-
-# print results
-
-kw = tracks.TrackCollector(name="Kanye West")
-
-print len(kw.song_features)
+print search('jay z')
