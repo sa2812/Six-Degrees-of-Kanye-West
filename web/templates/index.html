@@ -20,12 +20,17 @@
 		</div>
 	</div>
 	<div class="row">
+		{% if uri %}
+		<div class="small-9 medium-10 small-centered columns text-center">
+		<h1>{{ uri }}</h1>
+		{% else %}
 		<div class="small-9 medium-10 small-centered columns text-center">
 			<form method="post">
 				<input type="text" class="artist" placeholder="Enter artist name" maxlength="50" onkeyup="Expand(this);"/>
 				<br><input type="submit" id="submit" name="go" value="Submit"/>
 			</form>
 		</div>
+		{% endif %}
 	</div>
 
 
