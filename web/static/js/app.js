@@ -24,18 +24,18 @@ $(function () {
 	});
 });
 
-$(function() {
-	$("form input").keypress(function (e) {
-		if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
-			if ($('input').val()) {
-				$('input[type=submit] .default').click();
-				console.log($(this).val());
-				$('.artist').val('');
-				return false;	
-			}
-		} else {
-			return true;
-		}
-		return false;
-	});
-});
+// $(function() {
+// 	$("form input").keypress(function (e) {
+// 		if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+// 			if ($('input').val()) {
+// 				$('input[type=submit] .default').click();
+// 				console.log($(this).val());
+// 				$('.artist').val('');
+// 				return true;	
+// 			}
+// 		} else {
+// 			return true;
+// 		}
+// 		return false;
+// 	});
+// });
