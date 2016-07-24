@@ -9,7 +9,7 @@
 }*/
 
 .row {
-	padding-top: 60px;
+	margin-top: 30px;
 }
 
 h1 {
@@ -65,4 +65,20 @@ button:focus {
 .row {
   word-wrap: break-word;
   word-break: break-word;
+}
+
+.button {
+  background-color:#CDCDCD;
+  color:#3F3F3F;
+  text-transform: uppercase;
+  font-family: vcr, 'Arial';
+  font-size:1.5rem;
+  margin-top:30px;
+}
+
+.not-found {
+  margin-top:30px;
+  margin-bottom:30px;
+  font-size: 1.5rem;
+  background-color: #f78c52;
 }

@@ -1,6 +1,6 @@
 import sys
 sys.path.append("..")
-from flask import Flask, request, g, render_template, url_for, redirect, session
+from flask import Flask, request, g, render_template, url_for, redirect, session, flash
 from db_conn import *
 import os
 
@@ -16,7 +16,8 @@ def search(c, artist):
 	c.execute("""SELECT name, gen, uri
 				 FROM kanye_degree
 				 WHERE name LIKE ?
-		      	 """, (artist,))
+				 ORDER BY length(name)
+		      	 """, ('%'+artist+'%',))
 	return c.fetchone()
 
 @db_wrapper
@@ -33,16 +34,31 @@ def index():
 @app.route("/artist", methods=['POST'])
 def degree():
 	artist = request.form['artist']
-	name, gen, uri = search(artist)
+	try:
+		name, gen, uri = search(artist)
+	except TypeError:
+		flash("Artist not found")
+		return redirect(url_for('index'))
 	session['name'] = name
 	session['gen'] = gen
-	# return render_template('index.html', name=name.upper(), gen=gen)
 	return redirect(url_for('get_page', uri=uri))
 
-@app.route('/artist/<string:uri>')
+@app.route('/artist/<string:uri>', methods=['GET', 'POST'])
 def get_page(uri):
+	if request.method == 'POST':
+		name = session['name']
+		gen = session['gen']
+		try:
+			return render_template('index.html', name=name.upper(), gen=gen)
+		except NameError:
+			flash("Artist not found")
+			return redirect(url_for('index'))
 	name, gen, uri = search_by_uri(uri)
-	return render_template('index.html', name=name.upper(), gen=gen)
+	try:
+		return render_template('index.html', name=name.upper(), gen=gen)
+	except NameError:
+		flash("Artist not found")
+		return redirect(url_for('index'))
 
 
 if __name__ == "__main__":
