@@ -44,3 +44,9 @@ Temporary Items
 
 # Python bytecode
 *.pyc
+
+# Log files
+*.log
+
+# Pickled data
+*.pkl
