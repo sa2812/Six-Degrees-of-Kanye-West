@@ -10,15 +10,9 @@ app.secret_key = os.urandom(24)
 
 @db_wrapper
 def search(c, artist):
-	# c.execute("""SELECT name, gen, uri
-	# 			 FROM kanye_degree
-	# 			 WHERE name LIKE ?
-	# 	      	 """, ('%'+artist+'%',))
 	c.execute("""SELECT name, gen, uri
 				 FROM kanye_degree
-				 WHERE name LIKE ?
-				 ORDER BY length(name)
-		      	 """, ('%'+artist+'%',))
+				 WHERE name=?""", ('%'+artist+'%',))
 	return c.fetchone()
 
 @db_wrapper
