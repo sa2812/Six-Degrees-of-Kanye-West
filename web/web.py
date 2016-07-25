@@ -13,7 +13,7 @@ def search(c, artist):
 	c.execute("""SELECT name, gen, id
 				 FROM kanye_degree
 				 WHERE name LIKE ?
-				 ORDER BY length(name)""", ('%'+artist+'%',))
+				 ORDER BY length(name) ASC""", ('%'+artist+'%',))
 	return c.fetchone()
 
 @db_wrapper
