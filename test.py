@@ -17,11 +17,8 @@ def set_track_name(c, track_name, track):
 				 SET track_name=?, track_done=1
 				 WHERE track=?""", (track_name, track))
 
-
-current = 0
-while current < 10:
+while True:
 	track, = get_track()
 	track_name = sp.track(track)['name']
 	print track_name
 	set_track_name(track_name, track)
-	current += 1
