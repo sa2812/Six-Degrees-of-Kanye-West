@@ -2,11 +2,15 @@ import sys
 sys.path.append("..")
 from flask import Flask, request, g, render_template, url_for, redirect, session, flash
 from web_db_conn import *
+import spotipy
+import itertools
 import os
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
+sp = spotipy.Spotify()
+kanye_id = "5K4W6rqBFWDnAN6FQUkS6x"
 
 @db_wrapper
 def search(c, artist):
@@ -22,6 +26,42 @@ def search_by_id(c, _id):
 				 FROM kanye_degree
 				 WHERE id=?""", (_id, ))
 	return c.fetchone()
+
+@db_wrapper
+def get_connection(c, _id):
+	c.execute("""SELECT ancestor, track
+				 FROM kanye_degree
+				 WHERE id=?""", [_id])
+	return c.fetchone()
+
+@db_wrapper
+def get_name_from_id(c, _id):
+	c.execute("""SELECT name
+				 FROM kanye_degree
+				 WHERE id=?""", [_id])
+	return c.fetchone()
+
+def get_path(_id, path=None, tracks=None):
+	if not path:
+		path = [_id]
+		tracks = []
+	ancestor, track = get_connection(_id)
+	ancestor_id = ancestor[15:]
+	path.append(ancestor_id)
+	tracks.append(track)
+	while ancestor_id != kanye_id:
+		return get_path(ancestor_id, path, tracks)
+	path = [get_name_from_id(i)[0] for i in path]
+	tracks = [sp.track(i)['name'] for i in tracks]
+	return path, tracks
+
+def render(name, gen, result):
+	try:
+		return render_template('index.html', name=name.upper(),
+							   gen=gen, result=result)
+	except NameError:
+		flash("Artist not found")
+		return redirect(url_for('index'))
 
 @app.route("/")
 def index():
@@ -41,20 +81,14 @@ def degree():
 
 @app.route('/artist/<string:_id>', methods=['GET', 'POST'])
 def get_page(_id):
+	result = [x for x in itertools.chain.from_iterable(itertools.izip_longest(*get_path(_id))) if x]
 	if request.method == 'POST':
 		name = session['name']
 		gen = session['gen']
-		try:
-			return render_template('index.html', name=name.upper(), gen=gen)
-		except NameError:
-			flash("Artist not found")
-			return redirect(url_for('index'))
-	name, gen, _id = search_by_id(_id)
-	try:
-		return render_template('index.html', name=name.upper(), gen=gen)
-	except NameError:
-		flash("Artist not found")
-		return redirect(url_for('index'))
+		return render(name, gen, result)
+	else:
+		name, gen, _id = search_by_id(_id)
+		return render(name, gen, result)
 
 
 if __name__ == "__main__":

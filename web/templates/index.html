@@ -22,7 +22,17 @@
 	<div class="row">
 		{% if gen %}
 		<div class="small-9 medium-10 small-centered columns text-center">
-		<h1>{{ name }} IS {{ gen }} AWAY FROM KANYE WEST</h1>
+		<h2>{{ name }} IS {{ gen }} AWAY FROM KANYE WEST</h2>
+		<h3 class="result">Here's how they're linked:</h3>
+		{% for item in result %}
+		{% if song %}
+		<h4 class="song">{{ item }}</h4>
+		{% set song=False %}
+		{% else %}
+		<h4 class="artist">{{ item }}</h4>
+		{% set song=True %}
+		{% endif %}
+		{% endfor %}
 		<a class="button" href="{{ url_for('index') }}">Try another artist</a>
 		{% else %}
 		<div class="small-9 medium-9 small-centered columns text-center">

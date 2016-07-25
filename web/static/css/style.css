@@ -12,7 +12,12 @@
 	margin-top: 30px;
 }
 
-h1 {
+.result {
+  margin-top:30px;
+  margin-bottom:30px;
+}
+
+h1, h2, h3, h4, p {
 	font-family: vcr, 'Helvetica', 'Arial';
 	color: #3F3F3F;
 }
@@ -81,4 +86,8 @@ button:focus {
   margin-bottom:30px;
   font-size: 1.5rem;
   background-color: #f78c52;
+}
+
+.song {
+  color: #FF4646;
 }
