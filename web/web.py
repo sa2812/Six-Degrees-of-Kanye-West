@@ -1,11 +1,12 @@
 import sys
 sys.path.append("..")
 from flask import Flask, request, g, render_template, url_for, redirect, session, flash
-from db_conn import *
+from web_db_conn import *
 import os
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
+
 
 @db_wrapper
 def search(c, artist):
