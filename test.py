@@ -20,5 +20,5 @@ def set_track_name(c, track_name, track):
 while True:
 	track, = get_track()
 	track_name = sp.track(track)['name']
-	print track_name
+	print track_name.encode('utf-8')
 	set_track_name(track_name, track)
