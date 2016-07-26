@@ -11,31 +11,26 @@
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/jquery-ui.theme.min.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/jquery-ui.structure.min.css') }}">
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 	<script>
-$(document).ready(function() {
-    $.ajax({
-        url: '{{ url_for("autocomplete") }}'
-    }).done(function (data) {
-        $('.artist').autocomplete({
-            source: data
-        });
-    });
-})
-
-$(function() {
-    $(".artist").autocomplete({
-        source:function(request, response) {
-            $.getJSON("{{url_for('autocomplete')}}",{
-                q: request.term,
-            }, function(data) {
-                response(data);
-            });
-        },
-        minLength: 2
-    });
-})
+		$(function() {
+		    $(".artist").autocomplete({
+		        source:function(request, response) {
+		            $.getJSON("{{url_for('autocomplete')}}",{
+		                q: request.term,
+		            }, function(data) {
+		                response(data);
+		            });
+		        },
+		        minLength: 2,
+		        select:function(event, ui) {
+		        	$(".artist").val(ui.item.label);
+		        	$("#submit").click();
+		        }
+		    });
+		})
 	</script>
 </head>
 <body>
@@ -70,7 +65,7 @@ $(function() {
 				{% endfor %}
 			{% endif %}
 			{% endwith %}
-				<form action="{{url_for('degree')}}" method="post">
+				<form action="{{url_for('degree')}}" id="degree-submit" method="post">
 					<input type="text" name="artist" class="artist" placeholder="Enter artist name" maxlength="50" onkeyup="Expand(this);"/>
 					<br><input type="submit" class="default" id="submit" name="go" value="Submit"/>
 				</form>

@@ -113,7 +113,7 @@ def get_page(_id):
 def autocomplete():
 	name = request.args.get('q')
 	return json.dumps([ii[0] for ii in search_artist_name(name)])
-	# return None
+
 
 if __name__ == "__main__":
 	app.run(host="0.0.0.0")
