@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<title>Six Degrees Of Kanye West</title>
+	<title>{% if name %}{{ name }} - {% endif %}Six Degrees Of Kanye West</title>
 	<link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
 	<link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/foundation.css') }}">
@@ -14,40 +14,42 @@
 <body>
 	<div class="row">
 		<div class="small-12 columns text-center main-box">
-			<h1>SIX DEGREES</h1>
-			<h1>OF</h1>
-			<h1 class="kanye">KANYE WEST</h1>
+			<h1>SIX DEGREES<br>OF<br><span class="kanye-west">KANYE WEST</span></h1>
 		</div>
 	</div>
 	<div class="row">
 		{% if gen %}
-		<div class="small-9 medium-10 small-centered columns text-center">
-		<h2>{{ name }} IS {{ gen }} AWAY FROM KANYE WEST</h2>
-		<h3 class="result">Here's how they're linked:</h3>
-		{% for item in result %}
-		{% if song %}
-		<h4 class="song">{{ item }}</h4>
-		{% set song=False %}
-		{% else %}
-		<h4 class="artist">{{ item }}</h4>
-		{% set song=True %}
-		{% endif %}
-		{% endfor %}
-		<a class="button" href="{{ url_for('index') }}">Try another artist</a>
-		{% else %}
-		<div class="small-9 medium-9 small-centered columns text-center">
-		{% with messages = get_flashed_messages() %}
-		{% if messages %}
-		{% for message in messages %}
-		<h1 class="not-found">{{ message }}</h1>
-		{% endfor %}
-		{% endif %}
-		{% endwith %}
-			<form action="{{url_for('degree')}}" method="post">
-				<input type="text" autocomplete="off" name="artist" class="artist" placeholder="Enter artist name" maxlength="50" onkeyup="Expand(this);"/>
-				<br><input type="submit" class="default" id="submit" name="go" value="Submit"/>
-			</form>
+			<div class="small-9 medium-10 small-centered columns text-center">
+				<h2>{{ name.upper() }}'S KANYE NUMBER IS <span class="kanye-number">{{ gen }}</span></h2>
+				<h3 class="result">Here's how they're linked:</h3>
+				{% for item in result %}
+					{% if song %}
+						<h4 class="song"><a class="track-link" href="https://open.spotify.com/track/{{ item[0] }}" target="_blank">{{ item[1] }}</a></h4>
+						{% if item[2] %}
+							<audio controls><source src="{{ item[2] }}" type="audio/mpeg" /></audio>
+						{% endif %}
+						{% set song=False %}
+					{% else %}
+						<h4 class="artist">{{ item }}</h4>
+						{% set song=True %}
+					{% endif %}
+				{% endfor %}
+			<a class="button" href="{{ url_for('index') }}">Try another artist</a>
 		</div>
+		{% else %}
+			<div class="small-9 medium-9 small-centered columns text-center">
+			{% with messages = get_flashed_messages() %}
+			{% if messages %}
+				{% for message in messages %}
+					<h1 class="not-found">{{ message }}</h1>
+				{% endfor %}
+			{% endif %}
+			{% endwith %}
+				<form action="{{url_for('degree')}}" method="post">
+					<input type="text" autocomplete="off" name="artist" class="artist" placeholder="Enter artist name" maxlength="50" onkeyup="Expand(this);"/>
+					<br><input type="submit" class="default" id="submit" name="go" value="Submit"/>
+				</form>
+			</div>
 		{% endif %}
 	</div>
 

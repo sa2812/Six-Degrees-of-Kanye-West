@@ -4,10 +4,6 @@
   font-weight: 400;
 }
 
-/*.main-box {
-	margin-top: 100px;
-}*/
-
 .row {
 	margin-top: 30px;
 }
@@ -90,4 +86,11 @@ button:focus {
 
 .song {
   color: #FF4646;
+}
+
+.track-link {
+  color: #DC8B5E;
+}
+a:visited {
+  color: #F79C6A;
 }
