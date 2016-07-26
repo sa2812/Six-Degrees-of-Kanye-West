@@ -53,6 +53,7 @@
 
 
 	<script src="{{ url_for('static', filename='js/vendor/jquery.js') }}"></script>
+	<script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
 	<script src="{{ url_for('static', filename='js/vendor/what-input.js') }}"></script>
 	<script src="{{ url_for('static', filename='js/vendor/foundation.js') }}"></script>
 	<script src="{{ url_for('static', filename='js/app.js') }}"></script>
@@ -64,7 +65,6 @@
 
 	  ga('create', 'UA-81336038-1', 'auto');
 	  ga('send', 'pageview');
-	  ga('set', 'userId', {{USER_ID}}); // Set the user ID using signed-in user_id.
 
 	</script>
 </body>

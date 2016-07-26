@@ -21,6 +21,12 @@ def search(c, artist):
 	return c.fetchone()
 
 @db_wrapper
+def search_artist_name(c, name):
+	c.execute("SELECT name FROM kanye_degree WHERE name LIKE ?", (name+'%',))
+	return c.fetchall()
+
+
+@db_wrapper
 def search_by_id(c, _id):
 	c.execute("""SELECT name, gen, id
 				 FROM kanye_degree
@@ -102,6 +108,8 @@ def get_page(_id):
 		name, gen, _id = search_by_id(_id)
 		return render(name, gen, result)
 
+def autocomplete(name):
+	return jsonify(names=[ii[0] for ii in search_artist_name(name)])
 
 if __name__ == "__main__":
-	app.run(host="0.0.0.0")
+	app.run(debug=True)
