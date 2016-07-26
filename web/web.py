@@ -1,6 +1,6 @@
 import sys
 sys.path.append("..")
-from flask import Flask, request, g, render_template, url_for, redirect, session, flash, jsonify
+from flask import Flask, request, g, render_template, url_for, redirect, session, flash
 from web_db_conn import *
 import spotipy
 import json
