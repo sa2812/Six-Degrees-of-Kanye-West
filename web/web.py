@@ -112,4 +112,4 @@ def autocomplete(name):
 	return jsonify(names=[ii[0] for ii in search_artist_name(name)])
 
 if __name__ == "__main__":
-	app.run(debug=True)
+	app.run(host="0.0.0.0")
