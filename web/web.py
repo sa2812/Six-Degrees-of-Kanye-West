@@ -1,8 +1,9 @@
 import sys
 sys.path.append("..")
-from flask import Flask, request, g, render_template, url_for, redirect, session, flash
+from flask import Flask, request, g, render_template, url_for, redirect, session, flash, jsonify
 from web_db_conn import *
 import spotipy
+import json
 import itertools
 import os
 
@@ -22,7 +23,7 @@ def search(c, artist):
 
 @db_wrapper
 def search_artist_name(c, name):
-	c.execute("SELECT name FROM kanye_degree WHERE name LIKE ?", (name+'%',))
+	c.execute("SELECT name FROM kanye_degree WHERE name LIKE ? LIMIT 5", (name+'%',))
 	return c.fetchall()
 
 
@@ -108,8 +109,11 @@ def get_page(_id):
 		name, gen, _id = search_by_id(_id)
 		return render(name, gen, result)
 
-def autocomplete(name):
-	return jsonify(names=[ii[0] for ii in search_artist_name(name)])
+@app.route("/autocomplete", methods=['GET'])
+def autocomplete():
+	name = request.args.get('q')
+	return json.dumps([ii[0] for ii in search_artist_name(name)])
+	# return None
 
 if __name__ == "__main__":
 	app.run(host="0.0.0.0")
