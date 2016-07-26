@@ -29,7 +29,7 @@ def search_by_id(c, _id):
 
 @db_wrapper
 def get_connection(c, _id):
-	c.execute("""SELECT ancestor, track
+	c.execute("""SELECT ancestor, track, track_name
 				 FROM kanye_degree
 				 WHERE id=?""", [_id])
 	return c.fetchone()
@@ -41,19 +41,30 @@ def get_name_from_id(c, _id):
 				 WHERE id=?""", [_id])
 	return c.fetchone()
 
-def get_path(_id, path=None, tracks=None):
+def track_handler(track_id):
+	name = get_track(track)[0]
+	if name:
+		return name
+	else:
+		return sp.track(track)['name']
+
+def get_path(_id, path=None, track_ids=None, track_names=None):
 	if not path:
 		path = [_id]
-		tracks = []
-	ancestor, track = get_connection(_id)
+		track_ids = []
+		track_names = []
+	ancestor, track_id, track_name = get_connection(_id)
 	ancestor_id = ancestor[15:]
 	path.append(ancestor_id)
-	tracks.append(track)
+	track_ids.append(track_id)
+	if track_name:
+		track_names.append(track_name)
+	else:
+		track_names.append(sp.track(track_id)['name'])
 	while ancestor_id != kanye_id:
-		return get_path(ancestor_id, path, tracks)
+		return get_path(ancestor_id, path, track_ids, track_names)
 	path = [get_name_from_id(i)[0] for i in path]
-	tracks = [sp.track(i)['name'] for i in tracks]
-	return path, tracks
+	return path, track_names
 
 def render(name, gen, result):
 	try:
