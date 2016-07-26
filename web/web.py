@@ -48,7 +48,7 @@ def track_handler(track_id):
 	else:
 		return sp.track(track)['name']
 
-def get_path(_id, path=None, track_ids=None, track_names=None, snippets=None):
+def get_path(_id, path=None, track_ids=None, track_names=None):
 	if not path:
 		path = [_id]
 		track_ids = []
@@ -58,15 +58,14 @@ def get_path(_id, path=None, track_ids=None, track_names=None, snippets=None):
 	ancestor_id = ancestor[15:]
 	path.append(ancestor_id)
 	track_ids.append(track_id)
-	snippets.append(sp.track(track_id)['preview_url'])
 	if track_name:
 		track_names.append(track_name)
 	else:
 		track_names.append(sp.track(track_id)['name'])
 	while ancestor_id != kanye_id:
-		return get_path(ancestor_id, path, track_ids, track_names, snippets)
+		return get_path(ancestor_id, path, track_ids, track_names)
 	path = [get_name_from_id(i)[0] for i in path]
-	return path, zip(track_ids, (track_names), snippets)
+	return path, zip(track_ids, track_names)
 
 def render(name, gen, result):
 	try:
@@ -105,4 +104,4 @@ def get_page(_id):
 
 
 if __name__ == "__main__":
-	app.run(debug=True)
+	app.run(host="0.0.0.0")

@@ -25,9 +25,7 @@
 				{% for item in result %}
 					{% if song %}
 						<h4 class="song"><a class="track-link" href="https://open.spotify.com/track/{{ item[0] }}" target="_blank">{{ item[1] }}</a></h4>
-						{% if item[2] %}
-							<audio controls><source src="{{ item[2] }}" type="audio/mpeg" /></audio>
-						{% endif %}
+						<iframe src="https://embed.spotify.com/?uri=spotify:track:{{ item[0] }}&theme=white&view=coverart" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
 						{% set song=False %}
 					{% else %}
 						<h4 class="artist">{{ item }}</h4>
