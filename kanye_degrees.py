@@ -14,7 +14,7 @@ def create_table(c):
 												track text,
 												done integer,
 												track_done integer,
-												track_name text""")
+												track_name text)""")
 		kanye_uri = "spotify:artist:5K4W6rqBFWDnAN6FQUkS6x"
 		seed_artist = sp.artist(kanye_uri)
 		c.execute("""INSERT INTO kanye_degree
