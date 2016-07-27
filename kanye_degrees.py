@@ -14,12 +14,13 @@ def create_table(c):
 												track text,
 												done integer,
 												track_done integer,
-												track_name text)""")
+												track_name text,
+												popularity integer)""")
 		kanye_uri = "spotify:artist:5K4W6rqBFWDnAN6FQUkS6x"
 		seed_artist = sp.artist(kanye_uri)
 		c.execute("""INSERT INTO kanye_degree
-					 VALUES (?, ?, ?, ?, NULL, NULL, ?, ?, NULL)""",
-				  (seed_artist['name'], seed_artist['id'], seed_artist['uri'], 0, 0, 1))
+					 VALUES (?, ?, ?, ?, NULL, NULL, ?, ?, NULL, ?)""",
+				  (seed_artist['name'], seed_artist['id'], seed_artist['uri'], 0, 0, 1, seed_artist['popularity']))
 	except:
 		pass
 
@@ -28,15 +29,15 @@ def get_artist_not_done(c):
 	c.execute("""SELECT kanye_degree.'name', kanye_degree.'uri', kanye_degree.'gen'
 				 FROM kanye_degree
 				 WHERE kanye_degree.'done'=0
-				 ORDER BY kanye_degree.'gen' ASC""")
+				 ORDER BY kanye_degree.'gen' ASC, kanye_degree.'popularity' DESC""")
 	return c.fetchone()
 
 @db_wrapper
-def update_table_new_artist(c, name, _id, uri, gen, ancestor, track, track_name):
+def update_table_new_artist(c, name, _id, uri, gen, ancestor, track, track_name, popularity):
 	try:
 		c.execute("""INSERT INTO kanye_degree
-					 VALUES (?, ?, ?, ?, ?, ?, 0, 1, ?)""",
-				  (name, _id, uri, gen, ancestor, track, track_name))
+					 VALUES (?, ?, ?, ?, ?, ?, 0, 1, ?, ?)""",
+				  (name, _id, uri, gen, ancestor, track, track_name, popularity))
 	except sqlite3.IntegrityError:
 		pass
 
@@ -55,7 +56,7 @@ def mark_as_error(c, uri):
 create_table()
 
 gen = 0
-while gen < 7:
+while gen < 2:
 	current_name, current_uri, current_gen = get_artist_not_done()
 	gen = current_gen + 1
 	try:
@@ -73,7 +74,8 @@ while gen < 7:
 											gen,
 											current_uri,
 											song['id'],
-											song['name'])
+											song['name'],
+											sp.artist(artist['uri'])['popularity'])
 					print artist['name'].encode('utf-8')
 		mark_as_done(current_uri)
 		print "\nMarked as done\n"
