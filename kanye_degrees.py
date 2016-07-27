@@ -67,6 +67,7 @@ while gen < 2:
 			except ValueError:
 				continue
 			for artist in song['artists']:
+				artist = sp.artist(artist['uri'])
 				if artist['uri'] != current_uri:
 					update_table_new_artist(artist['name'],
 											artist['id'],
@@ -75,7 +76,7 @@ while gen < 2:
 											current_uri,
 											song['id'],
 											song['name'],
-											sp.artist(artist['uri'])['popularity'])
+											artist['popularity'])
 					print artist['name'].encode('utf-8')
 		mark_as_done(current_uri)
 		print "\nMarked as done\n"
