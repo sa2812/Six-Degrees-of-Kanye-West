@@ -26,6 +26,18 @@ def search_artist_name(c, name):
 	c.execute("SELECT name FROM kanye_degree WHERE name LIKE ? LIMIT 5", (name+'%',))
 	return c.fetchall()
 
+@db_wrapper
+def select_random(c):
+	loop = True
+	while loop:
+		c.execute("""SELECT name, gen, id
+					 FROM kanye_degree
+					 ORDER BY RANDOM()
+					 LIMIT 1""")
+		name, gen, _id = c.fetchone()
+		if _id != kanye_id:
+			return name, gen, _id
+
 
 @db_wrapper
 def search_by_id(c, _id):
@@ -109,6 +121,11 @@ def get_page(_id):
 		name, gen, _id = search_by_id(_id)
 		return render(name, gen, result)
 
+@app.route("/random")
+def random():
+	session['name'], session['gen'], _id = select_random()
+	return redirect(url_for('get_page', _id=_id))
+
 @app.route("/autocomplete", methods=['GET'])
 def autocomplete():
 	name = request.args.get('q')
@@ -116,4 +133,4 @@ def autocomplete():
 
 
 if __name__ == "__main__":
-	app.run(host="0.0.0.0")
+	app.run(debug=True)
