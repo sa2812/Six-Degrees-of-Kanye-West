@@ -41,7 +41,7 @@
 	</div>
 	<div class="row">
 		{% if gen %}
-			<div class="small-10 medium-10 small-centered columns text-center">
+			<div class="small-11 medium-10 small-centered columns text-center">
 				<h2>{{ name.upper() }}'S KANYE NUMBER IS <span class="kanye-number">{{ gen }}</span></h2>
 				<h3 class="result">Here's how they're linked:</h3>
 				{% for item in result %}
@@ -57,7 +57,7 @@
 			<a class="button" href="{{ url_for('index') }}">Try another artist</a>
 		</div>
 		{% else %}
-			<div class="small-12 medium-9 small-centered columns text-center">
+			<div class="small-11 medium-9 small-centered columns text-center">
 			{% with messages = get_flashed_messages() %}
 			{% if messages %}
 				{% for message in messages %}
