@@ -8,7 +8,7 @@ function Expand(obj){
 }
 
 $(function () {
-	$('input,textarea').focus(function () {
+	$('.artist').focus(function () {
 		$(this).data('placeholder', $(this).attr('placeholder'))
 		.attr('placeholder', '');
 		$(this).css('border', '0px solid #9B9B9B');

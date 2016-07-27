@@ -66,8 +66,9 @@
 			{% endif %}
 			{% endwith %}
 				<form action="{{url_for('degree')}}" id="degree-submit" method="post">
-					<input type="text" name="artist" class="artist" placeholder="Enter artist name" maxlength="50" onkeyup="Expand(this);"/>
-					<br><input type="submit" class="default" id="submit" name="go" value="Submit"/>
+					<input type="text" name="artist" class="artist" placeholder="Enter artist" maxlength="50" onkeyup="Expand(this);"/>
+					<!-- <a type="submit" class="button default" id="submit" name="go" value="Submit">Search</a> -->
+					<!-- <br> --><input type="submit" class="button form-submit default" id="submit" name="go" value="Search"/>
 				</form>
 				<a class="button" href="{{url_for('random') }}">Random artist</a>
 			</div>

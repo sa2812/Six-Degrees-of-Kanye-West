@@ -51,10 +51,10 @@ button:focus {
     outline: none;
 }
 
-#submit {
+/*#submit {
 	visibility:hidden;
 	display:none;
-}
+}*/
 
 ::selection {
   background: #f78c52; /* WebKit/Blink Browsers */
@@ -89,4 +89,16 @@ button:focus {
 }
 a:visited {
   color: #F79C6A;
+}
+
+.form-submit {
+  border: none;
+  color: #F79C6A;
+  display: inline;
+  margin-bottom: 40px;
+  margin-top: 0px;
+}
+
+input {
+  margin-bottom: 30px;
 }
