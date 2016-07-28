@@ -23,7 +23,15 @@ def search(c, artist):
 
 @db_wrapper
 def search_artist_name(c, name):
-	c.execute("SELECT name FROM kanye_degree WHERE name LIKE ? LIMIT 5", (name+'%',))
+	# c.execute("""SELECT name
+	# 			 FROM kanye_degree
+	# 			 WHERE name LIKE ?
+	# 			 ORDER BY popularity DESC
+	# 			 LIMIT 5""", ('%'+name+'%',))
+	c.execute("""SELECT name
+				 FROM kanye_degree
+				 WHERE name LIKE ?
+				 LIMIT 5""", ('%'+name+'%',))
 	return c.fetchall()
 
 @db_wrapper
@@ -133,4 +141,4 @@ def autocomplete():
 
 
 if __name__ == "__main__":
-	app.run(host="0.0.0.0")
+	app.run(debug=True)
