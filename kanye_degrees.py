@@ -33,13 +33,19 @@ def get_artist_not_done(c):
 	return c.fetchone()
 
 @db_wrapper
-def update_table_new_artist(c, name, _id, uri, gen, ancestor, track, track_name, popularity):
+def update_table_new_artist(c, name, _id, uri, gen, ancestor, track, track_name):
 	try:
 		c.execute("""INSERT INTO kanye_degree
-					 VALUES (?, ?, ?, ?, ?, ?, 0, 1, ?, ?)""",
-				  (name, _id, uri, gen, ancestor, track, track_name, popularity))
+					 VALUES (?, ?, ?, ?, ?, ?, 0, 1, ?, NULL)""",
+				  (name, _id, uri, gen, ancestor, track, track_name))
 	except sqlite3.IntegrityError:
 		pass
+
+@db_wrapper
+def update_popularity(c, uri, popularity):
+	c.execute("""UPDATE kanye_degree
+				 SET popularity=?
+				 WHERE uri=?""", (popularity, uri))
 
 @db_wrapper
 def mark_as_done(c, uri):
@@ -60,14 +66,15 @@ while gen < 7:
 	current_name, current_uri, current_gen = get_artist_not_done()
 	gen = current_gen + 1
 	try:
-		song_features = TrackCollector(uri=current_uri).song_features
+		current = TrackCollector(uri=current_uri)
+		song_features = current.song_features
+		update_popularity(current_uri, current.popularity)
 		for s in song_features:
 			try:
 				song = sp.track(s)
 			except ValueError:
 				continue
 			for artist in song['artists']:
-				artist = sp.artist(artist['uri'])
 				if artist['uri'] != current_uri:
 					update_table_new_artist(artist['name'],
 											artist['id'],
@@ -75,8 +82,7 @@ while gen < 7:
 											gen,
 											current_uri,
 											song['id'],
-											song['name'],
-											artist['popularity'])
+											song['name'])
 					print artist['name'].encode('utf-8')
 		mark_as_done(current_uri)
 		print "\nMarked as done\n"

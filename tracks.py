@@ -17,6 +17,7 @@ class TrackCollector:
 
 		self.albums = self.get_all_albums()
 		self.song_features = self.get_all_features()
+		self.popularity = artist['popularity']
 
 	def get_all_albums(self):
 		"""
