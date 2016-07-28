@@ -66,6 +66,7 @@ while gen < 7:
 	current_name, current_uri, current_gen = get_artist_not_done()
 	gen = current_gen + 1
 	try:
+		print current_uri
 		current = TrackCollector(uri=current_uri)
 		song_features = current.song_features
 		update_popularity(current_uri, current.popularity)
