@@ -4,6 +4,12 @@
   font-weight: 400;
 }
 
+@font-face {
+  font-family: opensansemoji;
+  src: url(../fonts/OpenSansEmoji.ttf);
+  font-weight: 400;
+}
+
 .row {
 	margin-top: 30px;
 }
@@ -101,4 +107,8 @@ a:visited {
 
 input {
   margin-bottom: 30px;
+}
+
+.nickname {
+  font-family: vcr, opensansemoji;
 }

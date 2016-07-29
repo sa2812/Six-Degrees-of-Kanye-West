@@ -13,6 +13,9 @@ app.secret_key = os.urandom(24)
 sp = spotipy.Spotify()
 kanye_id = "5K4W6rqBFWDnAN6FQUkS6x"
 
+specials = {'kimkardashian' : {'type': 'youtube', 'link_id': 'BBAtAM7vtgc', 'nickname':'Kim K', 'get_path': False},
+			'06HL4z0CvFAxyc27GXpf02' : {'type': 'youtube', 'link_id': 'jprU442C43w', 'nickname': u'\U0001F40D', 'get_path': True}}
+
 @db_wrapper
 def search(c, artist):
 	c.execute("""SELECT name, gen, id
@@ -94,8 +97,11 @@ def get_path(_id, path=None, track_ids=None, track_names=None):
 	path = [get_name_from_id(i)[0] for i in path]
 	return path, zip(track_ids, track_names)
 
-def render(name, gen, result):
+def render(name, gen, result, _flash=None):
 	try:
+		if _flash:
+			for i in _flash:
+				flash(*i)
 		return render_template('index.html', name=name,
 							   gen=gen, result=result)
 	except NameError:
@@ -118,8 +124,23 @@ def degree():
 	session['gen'] = gen
 	return redirect(url_for('get_page', _id=_id))
 
-@app.route('/artist/<string:_id>', methods=['GET', 'POST'])
+@app.route('/<string:_id>', methods=['GET', 'POST'])
 def get_page(_id):
+	try:
+		special = specials[_id]
+		_flash = []
+		# flash(special['type'], 'linktype')
+		# flash(special['link_id'], 'link-id')
+		_flash.append((special['nickname'], 'nickname'))
+		_flash.append((special['link_id'], special['type']))
+		if special['get_path']:
+			result = [x for x in itertools.chain.from_iterable(itertools.izip_longest(*get_path(_id))) if x]
+		else:
+			result = []
+		name, gen, _id = search_by_id(_id)
+		return render(name, gen, result, _flash)
+	except KeyError:
+		pass
 	result = [x for x in itertools.chain.from_iterable(itertools.izip_longest(*get_path(_id))) if x]
 	if request.method == 'POST':
 		name = session['name']
@@ -141,4 +162,4 @@ def autocomplete():
 
 
 if __name__ == "__main__":
-	app.run(host="0.0.0.0")
+	app.run(debug=True)
