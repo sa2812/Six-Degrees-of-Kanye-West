@@ -13,8 +13,14 @@ app.secret_key = os.urandom(24)
 sp = spotipy.Spotify()
 kanye_id = "5K4W6rqBFWDnAN6FQUkS6x"
 
-specials = {'kimkardashian' : {'type': 'youtube', 'link_id': 'BBAtAM7vtgc', 'nickname':'Kim K', 'get_path': False},
-			'06HL4z0CvFAxyc27GXpf02' : {'type': 'youtube', 'link_id': 'jprU442C43w', 'nickname': u'\U0001F40D', 'get_path': True}}
+specials = {'kimkardashian' 		 : {'type': 'youtube',
+							   			'link_id': 'BBAtAM7vtgc',
+							   			'nickname':'Kim K',
+							  			'get_path': False},
+			'06HL4z0CvFAxyc27GXpf02' : {'type': 'youtube',
+										'link_id': 'p7FCgw_GlWc',
+										'nickname': u'\U0001F40D',
+										'get_path': True}}
 
 @db_wrapper
 def search(c, artist):
@@ -162,4 +168,4 @@ def autocomplete():
 
 
 if __name__ == "__main__":
-	app.run(debug=True)
+	app.run(host="0.0.0.0")
