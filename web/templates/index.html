@@ -14,6 +14,7 @@
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/jquery-ui.theme.min.css') }}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/jquery-ui.structure.min.css') }}">
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+	<script src="https://use.fontawesome.com/86716e08c5.js"></script>
 	<script>
 		$(function() {
 		    $(".artist").autocomplete({
@@ -92,6 +93,30 @@
 				<a class="button" href="{{url_for('random') }}">Random artist</a>
 			</div>
 		{% endif %}
+	</div>
+	<div class="row">
+		<div class="small-12 medium-9 small-centered columns">
+			<div class="small-3 text-center columns">
+				<a class="button share-button" href="https://www.facebook.com/sharer/sharer.php?u=http%3A//sixdegreesofkanyewest.com{% if gen %}/{{ _id }}{% endif %}" target="_blank"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
+			</div>
+			<div class="small-3 text-center columns">
+				{% if gen %}
+					<a class="button share-button" href="whatsapp://send?text=Check%20out%20{{ name.upper() }}'s%20Kanye%20number!%20http://sixdegreesofkanyewest.com/{{ _id }}" data-action="share/whatsapp/share"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+				{% else %}
+					<a class="button share-button" href="whatsapp://send?text=Search%20for%20an%20artist's%20Kanye%20number!%20http://sixdegreesofkanyewest.com" data-action="share/whatsapp/share"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+				{% endif %}
+			</div>
+			<div class="small-3 text-center columns">
+				{% if gen %}
+					<a class="button share-button" target="_blank" href="https://twitter.com/intent/tweet?text=Check%20out%20{{ name }}'s%20Kanye%20number%20http://sixdegreesofkanyewest.com/{{ _id }}"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+				{% else %}
+					<a class="button share-button" target="_blank" href="http://twitter.com/intent/tweet?text=Find%20an%20artist's%20Kanye%20number!%20http://sixdegreesofkanyewest.com/{{ _id }}"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+				{% endif %}
+			</div>
+			<div class="small-3 text-center columns">
+				<a class="button share-button" href="//www.reddit.com/submit" onclick="window.open('//www.reddit.com/submit?url='+encodeURIComponent(window.location),'_blank');return false"><i class="fa fa-reddit" aria-hidden="true"></i></a>
+			</div>
+		</div>
 	</div>
 
 

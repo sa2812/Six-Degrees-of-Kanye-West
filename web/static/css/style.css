@@ -112,3 +112,9 @@ input {
 .nickname {
   font-family: vcr, opensansemoji;
 }
+
+.share-button {
+  color: #F79C6A;
+  margin-top: 16px;
+  padding: 15px;
+}

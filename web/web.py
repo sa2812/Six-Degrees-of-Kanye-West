@@ -103,13 +103,13 @@ def get_path(_id, path=None, track_ids=None, track_names=None):
 	path = [get_name_from_id(i)[0] for i in path]
 	return path, zip(track_ids, track_names)
 
-def render(name, gen, result, _flash=None):
+def render(name, gen, result, _id, _flash=None):
 	try:
 		if _flash:
 			for i in _flash:
 				flash(*i)
 		return render_template('index.html', name=name,
-							   gen=gen, result=result)
+							   gen=gen, result=result, _id=_id)
 	except NameError:
 		flash("Artist not found")
 		return redirect(url_for('index'))
@@ -144,17 +144,17 @@ def get_page(_id):
 		else:
 			result = []
 		name, gen, _id = search_by_id(_id)
-		return render(name, gen, result, _flash)
+		return render(name, gen, result, _id, _flash)
 	except KeyError:
 		pass
 	result = [x for x in itertools.chain.from_iterable(itertools.izip_longest(*get_path(_id))) if x]
 	if request.method == 'POST':
 		name = session['name']
 		gen = session['gen']
-		return render(name, gen, result)
+		return render(name, gen, result, _id)
 	else:
 		name, gen, _id = search_by_id(_id)
-		return render(name, gen, result)
+		return render(name, gen, result, _id)
 
 @app.route("/random")
 def random():
