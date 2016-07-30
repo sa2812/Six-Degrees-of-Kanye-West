@@ -33,6 +33,15 @@
 		    });
 		})
 	</script>
+	{% if gen %}
+		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+		<script>
+		  (adsbygoogle = window.adsbygoogle || []).push({
+		    google_ad_client: "ca-pub-3607823939635052",
+		    enable_page_level_ads: true
+		  });
+		</script>
+	{% endif %}
 </head>
 <body>
 	<div class="row">
@@ -65,11 +74,15 @@
 					<h3 class="result">Here's how they're linked:</h3>
 					{% for item in result %}
 						{% if song %}
+						<div class="song-section">
 							<h4 class="song"><a class="track-link" href="https://open.spotify.com/track/{{ item[0] }}" target="_blank">{{ item[1] }}</a></h4>
 							<iframe src="https://embed.spotify.com/?uri=spotify:track:{{ item[0] }}&amp;theme=white&amp;view=coverart" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
+						</div>
 							{% set song=False %}
 						{% else %}
+						<div class="artist-section">
 							<h4 class="artist">{{ item }}</h4>
+						</div>
 							{% set song=True %}
 						{% endif %}
 					{% endfor %}
@@ -90,7 +103,7 @@
 					<!-- <a type="submit" class="button default" id="submit" name="go" value="Submit">Search</a> -->
 					<!-- <br> --><input type="submit" class="button form-submit default" id="submit" name="go" value="Search"/>
 				</form>
-				<a class="button" href="{{url_for('random') }}">Random artist</a>
+				<a class="button" href="{{url_for('random') }}"><i class="fa fa-random" aria-hidden="true"></i> Random artist</a>
 			</div>
 		{% endif %}
 	</div>
@@ -118,6 +131,23 @@
 			</div>
 		</div>
 	</div>
+
+	{% if gen %}
+	<div class="row">
+		<div class="small-6 small-centered columns">
+			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<!-- SixDegreesOfKanyeWest -->
+			<ins class="adsbygoogle"
+			     style="display:block"
+			     data-ad-client="ca-pub-3607823939635052"
+			     data-ad-slot="2964966744"
+			     data-ad-format="auto"></ins>
+			<script>
+			(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
+		</div>
+	</div>
+	{% endif %}
 
 
 	<script src="{{ url_for('static', filename='js/vendor/what-input.js') }}"></script>
