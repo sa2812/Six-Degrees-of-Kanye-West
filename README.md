@@ -1,5 +1,7 @@
 #Six Degrees of Kanye West
 
+Source code for http://sixdegreesofkanyewest.com
+
 This is just a working title until I come up with one that sticks.
 
 The `spotify.py` uses the [`Spotipy`](https://github.com/plamere/spotipy) package to access the [Spotify API](https://developer.spotify.com/web-api/).
