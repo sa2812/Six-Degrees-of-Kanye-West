@@ -36,11 +36,7 @@ def search_artist_name(c, name):
 				 FROM kanye_degree
 				 WHERE name LIKE ?
 				 ORDER BY popularity DESC, gen ASC
-				 LIMIT 5""", ('%'+name+'%',))
-	# c.execute("""SELECT name
-	# 			 FROM kanye_degree
-	# 			 WHERE name LIKE ?
-	# 			 LIMIT 5""", ('%'+name+'%',))
+				 LIMIT 5""", (name+'%',))
 	return c.fetchall()
 
 @db_wrapper
@@ -108,10 +104,10 @@ def render(name, gen, result, _id, _flash=None):
 		if _flash:
 			for i in _flash:
 				flash(*i)
-		return render_template('index.html', name=name,
+		return render_template('result.html', name=name,
 							   gen=gen, result=result, _id=_id)
 	except NameError:
-		flash("Artist not found")
+		flash("Artist not found", "error")
 		return redirect(url_for('index'))
 
 @app.route("/")
@@ -165,6 +161,10 @@ def random():
 def autocomplete():
 	name = request.args.get('q')
 	return json.dumps([ii[0] for ii in search_artist_name(name)])
+
+@app.route("/about")
+def about():
+	return render_template('about.html')
 
 
 if __name__ == "__main__":

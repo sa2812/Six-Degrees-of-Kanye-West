@@ -1,0 +1,87 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ name }} - {% endblock %}
+{% block head %}
+	{{ super() }}
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<script>
+	  (adsbygoogle = window.adsbygoogle || []).push({
+	    google_ad_client: "ca-pub-3607823939635052",
+	    enable_page_level_ads: true
+	  });
+	</script>
+{% endblock %}
+{% block body %}
+	<div class="row">
+		<div class="small-11 medium-9 small-centered columns text-center">
+			{% with nicknames = get_flashed_messages(category_filter=['nickname']) %}
+				{% if nicknames %}
+			    	{% for nickname in nicknames %}
+			    		<h2>{{ nickname }}'S KANYE NUMBER IS <span class="kanye-number">{{ gen }}</span></h2>
+			    	{% endfor %}
+			    {% else %}
+			    	<h2>{{ name.upper() }}'S KANYE NUMBER IS <span class="kanye-number">{{ gen }}</span></h2>
+			    {% endif %}
+			{% endwith %}
+			{% with youtube_links = get_flashed_messages(category_filter=['youtube']) %}
+				{% if youtube_links %}
+					{% for link in youtube_links %}
+						<div class="flex-video">
+							<iframe width="480" height="270" src="https://www.youtube.com/embed/{{ link }}" frameborder="0" allowfullscreen></iframe>
+						</div>
+					{% endfor %}
+				{% endif %}
+			{% endwith %}
+			{% if result %}
+				<h3 class="result">Here's how they're linked:</h3>
+				{% for item in result %}
+					{% if song %}
+					<div class="song-section">
+						<h4 class="song"><a class="track-link" href="https://open.spotify.com/track/{{ item[0] }}" target="_blank">{{ item[1] }}</a></h4>
+						<iframe src="https://embed.spotify.com/?uri=spotify:track:{{ item[0] }}&amp;theme=white&amp;view=coverart" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
+					</div>
+						{% set song=False %}
+					{% else %}
+					<div class="artist-section">
+						<h4 class="artist">{{ item }}</h4>
+					</div>
+						{% set song=True %}
+					{% endif %}
+				{% endfor %}
+			{% endif %}
+		<a class="button" href="{{ url_for('index') }}">Try another artist</a>
+	</div>
+	</div>
+	<div class="row">
+		<div class="small-12 medium-9 small-centered columns">
+			<div class="small-3 text-center columns">
+				<a class="button share-button" href="https://www.facebook.com/sharer/sharer.php?u=http%3A//sixdegreesofkanyewest.com{% if gen %}/{{ _id }}{% endif %}" target="_blank"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
+			</div>
+			<div class="small-3 text-center columns">
+					<a class="button share-button" href="whatsapp://send?text=Check%20out%20{{ name }}'s%20Kanye%20number!%20http://sixdegreesofkanyewest.com/{{ _id }}" data-action="share/whatsapp/share"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+			</div>
+			<div class="small-3 text-center columns">
+					<a class="button share-button" target="_blank" href="https://twitter.com/intent/tweet?text=Check%20out%20{{ name }}'s%20Kanye%20number%20http://sixdegreesofkanyewest.com/{{ _id }}"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+			</div>
+			<div class="small-3 text-center columns">
+				<a class="button share-button" href="//www.reddit.com/submit" onclick="window.open('//www.reddit.com/submit?url='+encodeURIComponent(window.location),'_blank');return false"><i class="fa fa-reddit" aria-hidden="true"></i></a>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block ad %}
+	<div class="row">
+		<div class="small-6 small-centered columns">
+			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<!-- SixDegreesOfKanyeWest -->
+			<ins class="adsbygoogle"
+			     style="display:block"
+			     data-ad-client="ca-pub-3607823939635052"
+			     data-ad-slot="2964966744"
+			     data-ad-format="auto"></ins>
+			<script>
+			(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
+		</div>
+	</div>
+{% endblock %}

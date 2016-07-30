@@ -1,24 +1,18 @@
 {% extends "layout.html" %}
 
-{% block title %}{% if name %}{{ name }} - {% endif %}{% endblock %}
+{% block title %}About - {% endblock %}
 {% block head %}
 	{{ super() }}
 {% endblock %}
 {% block body %}
 	<div class="row">
 		<div class="small-11 medium-9 small-centered columns text-center">
-		{% with messages = get_flashed_messages() %}
-			{% if messages %}
-				{% for message in messages %}
-					<h1 class="not-found">{{ message }}</h1>
-				{% endfor %}
-			{% endif %}
-		{% endwith %}
-			<form action="{{url_for('degree')}}" id="degree-submit" method="post">
-				<input type="text" name="artist" class="artist" placeholder="Enter artist" maxlength="50" onkeyup="Expand(this);"/>
-				<input type="submit" class="button form-submit default" id="submit" name="go" value="Search"/>
-			</form>
-			<a class="button" href="{{url_for('random') }}"><i class="fa fa-random" aria-hidden="true"></i> Random</a>
+			<hr>
+			<h3>About</h3>
+			<p>Self-proclaimed "modern day rock star", Kanye West has collaborated with everyone from JAY Z to Paul McCartney.</p>
+			<p>With his huge network, there's an enormous library of artists just a stone's throw away from Ye. But how short is that stone's throw? <a href="{{ url_for('index') }}">Search for an artist</a> and find out for yourself!</p>
+			<p>This website gets its name from the theory of 'Six Degrees of Separation' in which every pair of people on the planet are on average just six connections away from one another.</p>
+			<p>Website by <a href="https://www.sunnyamrat.com/">Sunny Amrat</a>.</p>
 		</div>
 	</div>
 	<div class="row">

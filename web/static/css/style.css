@@ -75,8 +75,6 @@ button:focus {
 }
 
 .button {
-  background-color:#CDCDCD;
-  color:#3F3F3F;
   text-transform: uppercase;
   font-family: vcr, 'Arial';
   font-size:1.5rem;
@@ -99,7 +97,6 @@ a:visited {
 
 .form-submit {
   border: none;
-  color: #F79C6A;
   display: inline;
   margin-bottom: 40px;
   margin-top: 0px;
@@ -114,7 +111,44 @@ input {
 }
 
 .share-button {
-  color: #F79C6A;
   margin-top: 16px;
   padding: 15px;
+}
+
+a {
+  font-family: vcr, 'Helvetica';
+  color: #F79C6A;
+}
+
+.leader-text {
+  color: #3F3F3F;
+}
+
+.leader-text:visited {
+  color: #3F3F3F
+}
+
+.leader-text:hover {
+  color: #F79C6A;
+}
+
+.bottom-text {
+  font-family: vcr, 'Helvetica';
+  color: #F79C6A;
+  margin-bottom: 30px;
+}
+
+hr {
+  color: #F79C6A;
+  border: thin solid;
+}
+
+a.button:hover, .button:hover {
+  color: #F79C6A;
+  background-color: #3F3F3F;
+}
+
+a.button, .button {
+  color: #3F3F3F;
+  background-color: #F79C6A;
 }
