@@ -36,7 +36,7 @@ def search_artist_name(c, name):
 				 FROM kanye_degree
 				 WHERE name LIKE ?
 				 ORDER BY popularity DESC, gen ASC
-				 LIMIT 5""", (name+'%',))
+				 LIMIT 5""", ('%'+name+'%',))
 	return c.fetchall()
 
 @db_wrapper
