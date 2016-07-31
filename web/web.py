@@ -131,8 +131,6 @@ def get_page(_id):
 	try:
 		special = specials[_id]
 		_flash = []
-		# flash(special['type'], 'linktype')
-		# flash(special['link_id'], 'link-id')
 		_flash.append((special['nickname'], 'nickname'))
 		_flash.append((special['link_id'], special['type']))
 		if special['get_path']:
