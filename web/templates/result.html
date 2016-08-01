@@ -3,6 +3,32 @@
 {% block title %}{{ name }} - {% endblock %}
 {% block head %}
 	<meta name="description" content="Check out {{ name}}'s Kanye number! - Six Degrees of Kanye West">
+	<script type="application/ld+json">
+	{
+	    "@context": "http://schema.org",
+	    "@type": "SearchAction",
+	    "url": "http://sixdegreesofkanyewest.com/",
+	    "result": "{{ name }}'s Kanye number is {{ gen }}",
+	    "target": {
+	    	"@type": "Person",
+	    	"name": "{{ name }}"
+	    },
+	    "object": {
+	    	"@type": "Person",
+	    	"name": "Kanye West",
+	    	"url": "http://kanyewest.com"
+	    },
+	    "isBasedOn": {
+	    	"@type": "URL",
+	    	"url": "https://en.wikipedia.org/wiki/Six_degrees_of_separation"
+	    },
+	    "author": {
+	    	"@type": "Person",
+	    	"url": "https://www.sunnyamrat.com"
+	    },
+	    "about": "Find out how many features your favourite artist is from Kanye West!"
+	}
+	</script>
 	{{ super() }}
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<script>

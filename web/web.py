@@ -131,9 +131,13 @@ def render(name, gen, result, _id, _flash=None):
 def index():
     return render_template('index.html')
 
-@app.route("/artist", methods=['POST'])
+@app.route("/artist", methods=['GET','POST'])
 def degree():
-	artist = request.form['artist']
+	try:
+		artist = request.form['artist']
+	except:
+		artist = request.args.get('q')
+
 	try:
 		name, gen, _id = search(artist)
 	except TypeError:
@@ -183,4 +187,4 @@ def about():
 
 
 if __name__ == "__main__":
-	app.run(host="0.0.0.0")
+	app.run(debug=True)

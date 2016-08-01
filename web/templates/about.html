@@ -3,6 +3,33 @@
 {% block title %}About - {% endblock %}
 {% block head %}
 	<meta name="description" content="Find out about Six Degrees of Kanye West and what it's all about - Six Degrees of Kanye West">
+	<script type="application/ld+json">
+	{
+	    "@context": "http://schema.org",
+	    "@type": "WebSite",
+	    "url": "http://sixdegreesofkanyewest.com/",
+	    "mentions": {
+	    	"@type": "Person",
+	    	"name": "Kanye West",
+	    	"url": "http://kanyewest.com"
+	    },
+	    "isBasedOn": {
+	    	"@type": "URL",
+	    	"url": "https://en.wikipedia.org/wiki/Six_degrees_of_separation"
+	    },
+	    "author": {
+	    	"@type": "Person",
+	    	"url": "https://www.sunnyamrat.com"
+	    },
+	    "potentialAction": {
+	      "@type": "SearchAction",
+	      "target": "http://sixdegreesofkanyewest.com/artist?&q={query}",
+	      "query-input": "required",
+	      "name": "Find Kanye number"
+	    },
+	    "about": "Find out how many features your favourite artist is from Kanye West!"
+	}
+	</script>
 	{{ super() }}
 {% endblock %}
 {% block body %}

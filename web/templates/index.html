@@ -3,6 +3,33 @@
 {% block title %}{% if name %}{{ name }} - {% endif %}{% endblock %}
 {% block head %}
 	<meta name="description" content="How many features away from Kanye West is your favourite artist? Type in their name to find out their Kanye number! - Six Degrees of Kanye West">
+	<script type="application/ld+json">
+	{
+	    "@context": "http://schema.org",
+	    "@type": "WebSite",
+	    "url": "http://sixdegreesofkanyewest.com/",
+	    "mentions": {
+	    	"@type": "Person",
+	    	"name": "Kanye West",
+	    	"url": "http://kanyewest.com"
+	    },
+	    "isBasedOn": {
+	    	"@type": "URL",
+	    	"url": "https://en.wikipedia.org/wiki/Six_degrees_of_separation"
+	    },
+	    "author": {
+	    	"@type": "Person",
+	    	"url": "https://www.sunnyamrat.com"
+	    },
+	    "potentialAction": {
+	      "@type": "SearchAction",
+	      "target": "http://sixdegreesofkanyewest.com/artist?&q={query}",
+	      "query-input": "required",
+	      "name": "Find Kanye number"
+	    },
+	    "about": "Find out how many features your favourite artist is from Kanye West!"
+	}
+	</script>
 	{{ super() }}
 {% endblock %}
 {% block body %}
