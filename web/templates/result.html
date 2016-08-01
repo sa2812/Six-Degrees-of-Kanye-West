@@ -3,33 +3,36 @@
 {% block title %}{{ name }} - {% endblock %}
 {% block head %}
 	<meta name="description" content="Check out {{ name}}'s Kanye number! - Six Degrees of Kanye West">
-	<script type="application/ld+json">
-	{
-	    "@context": "http://schema.org",
-	    "@type": "SearchAction",
-	    "url": "http://sixdegreesofkanyewest.com/",
-	    "result": "{{ name }}'s Kanye number is {{ gen }}",
-	    "target": {
+<script type="application/ld+json">
+    [{
+    	"@context": "http://schema.org",
+        "@type": "FindAction",
+	    "result": "{{ name }}'s Kanye number is 1",
+	    "agent": {
 	    	"@type": "Person",
 	    	"name": "{{ name }}"
 	    },
 	    "object": {
 	    	"@type": "Person",
-	    	"name": "Kanye West",
-	    	"url": "http://kanyewest.com"
+	    	"name": "Kanye West"
+	    }
+	},
+    {
+	    "@context": "http://schema.org",
+	    "@type": "Website",
+	    "url": "http://sixdegreesofkanyewest.com/",
+	    "about": "Find out how many features your favourite artist is from Kanye West!",
+	    "author": {
+	    	"@type": "Person",
+	    	"url": "https://www.sunnyamrat.com"
 	    },
 	    "potentialAction": {
 	      "@type": "SearchAction",
 	      "target": "http://sixdegreesofkanyewest.com/artist?&q={q}",
 	      "query-input": "required name=q",
 	      "name": "Find Kanye number"
-	    },
-	    "author": {
-	    	"@type": "Person",
-	    	"url": "https://www.sunnyamrat.com"
-	    },
-	    "about": "Find out how many features your favourite artist is from Kanye West!"
-	}
+	    }
+    }]
 	</script>
 	{{ super() }}
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
