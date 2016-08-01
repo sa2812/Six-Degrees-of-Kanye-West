@@ -16,11 +16,28 @@ kanye_id = "5K4W6rqBFWDnAN6FQUkS6x"
 specials = {'kimkardashian' 		 : {'type': 'youtube',
 							   			'link_id': 'BBAtAM7vtgc',
 							   			'nickname':'Kim K',
-							  			'get_path': False},
+							  			'get_path': False,
+							  			'text': False},
 			'06HL4z0CvFAxyc27GXpf02' : {'type': 'youtube',
 										'link_id': 'p7FCgw_GlWc',
 										'nickname': u'\U0001F40D',
-										'get_path': True}}
+										'get_path': True,
+										'text': False},
+			'5670CyWrIOA7702gNjsGMZ' : {'type': None,
+										'link_id': None,
+										'nickname': 'Manfred Mann',
+										'get_path': True,
+										'text': 'Not a typical feature, but Kanye sampled him for So Appalled and Manfred Mann then sampled So Appalled for this track'},
+			'6l3HvQ5sa6mXTsMTB19rO5' : {'type': 'youtube',
+										'link_id': 'WDYd0ifaXU4',
+										'nickname': 'J. Cole',
+										'get_path': False,
+										'text': False},
+			'05Dpcy4OjmNhVDsSdczrS9' : {'type': 'twitter',
+										'link_id': 'https://twitter.com/kanyewest/status/572225445325873154',
+										'nickname': 'Mike Dean',
+										'get_path': False,
+										'text': False}}
 
 @db_wrapper
 def search(c, artist):
