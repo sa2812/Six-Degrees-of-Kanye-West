@@ -62,7 +62,7 @@ def mark_as_error(c, uri):
 create_table()
 
 gen = 0
-while gen < 7:
+while gen < 3:
 	current_name, current_uri, current_gen = get_artist_not_done()
 	gen = current_gen + 1
 	try:
@@ -90,3 +90,5 @@ while gen < 7:
 	except (IndexError, TypeError) as e:
 		print "{} could not be added".format(current_name)
 		mark_as_error(current_uri)
+
+# 161 in gen=1
