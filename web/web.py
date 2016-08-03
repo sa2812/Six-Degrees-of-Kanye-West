@@ -37,6 +37,11 @@ specials = {'kimkardashian' 		 : {'type': 'youtube',
 										'link_id': 'https://twitter.com/kanyewest/status/572225445325873154',
 										'nickname': 'Mike Dean',
 										'get_path': False,
+										'text': False},
+			kanye_id				 : {'type': 'youtube',
+										'link_id': 'LsA84bXrBZw',
+										'nickname': 'YEEZY',
+										'get_path': False,
 										'text': False}}
 
 @db_wrapper
