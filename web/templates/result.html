@@ -81,9 +81,21 @@
 					{% endif %}
 				{% endfor %}
 			{% endif %}
-		<a class="button" href="{{ url_for('index') }}">Try another artist</a>
+	<hr>
 	</div>
 	</div>
+
+
+	<div class="row">
+		<div class="small-11 medium-9 small-centered columns text-center">
+			<form action="{{url_for('degree')}}" id="degree-submit" method="post">
+				<input type="text" name="artist" class="artist" placeholder="Enter artist" maxlength="50" onkeyup="Expand(this);"/>
+				<input type="submit" class="button form-submit default" id="submit" name="go" value="Search"/>
+			</form>
+			<a class="button" href="{{url_for('random') }}"><i class="fa fa-random" aria-hidden="true"></i> Random</a>
+		</div>
+	</div>
+
 	<div class="row">
 		<div class="small-12 medium-9 small-centered columns">
 			<div class="small-3 text-center columns">

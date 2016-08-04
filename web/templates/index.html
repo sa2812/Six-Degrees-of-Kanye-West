@@ -34,7 +34,9 @@
 		{% with messages = get_flashed_messages() %}
 			{% if messages %}
 				{% for message in messages %}
-					<h1 class="not-found">{{ message }}</h1>
+					<h1 class="not-found">Artist not found</h1>
+					<p>Either this artist isn't connected to Kanye West (they might not make tracks featuring other artists) or we've made a mistake. If you think we've made a mistake, please <a href="https://goo.gl/forms/VsTyy0KOqOzZcyYU2" target="_blank">let us know</a>.</p>
+					<hr>
 				{% endfor %}
 			{% endif %}
 		{% endwith %}
