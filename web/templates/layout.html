@@ -12,9 +12,9 @@
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/foundation.min.css') }}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/jquery-ui.theme.min.css') }}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/jquery-ui.structure.min.css') }}">
-  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-	<script src="https://use.fontawesome.com/86716e08c5.js"></script>
+  	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="https://use.fontawesome.com/86716e08c5.js"></script>
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 	<script>
 		$(function() {
@@ -57,18 +57,8 @@
 	{% endblock %}
 
 
-	<script src="{{ url_for('static', filename='js/vendor/what-input.js') }}"></script>
-	<script src="{{ url_for('static', filename='js/vendor/foundation.js') }}"></script>
-	<script src="{{ url_for('static', filename='js/app.js') }}"></script>
-	<script>
-	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-	  ga('create', 'UA-81336038-1', 'auto');
-	  ga('send', 'pageview');
-
-	</script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/vendor/what-input.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/vendor/foundation.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>
