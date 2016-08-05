@@ -1,6 +1,6 @@
 @font-face {
   font-family: vcr;
-  src: url(../fonts/vcr.ttf);
+  src: url(../fonts/vcr.ttf) format("svg");
   font-weight: 400;
 }
 
