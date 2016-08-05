@@ -120,10 +120,6 @@ a {
   color: #3F3F3F;
 }
 
-.leader-text:visited {
-  color: #3F3F3F;
-}
-
 .leader-text:hover {
   color: #F79C6A;
 }
@@ -159,4 +155,9 @@ a.button, .button {
     .tagline {
       font-size: 1.0625rem;
     }
+}
+
+.header-space {
+  visibility: hidden;
+  display: none;
 }
