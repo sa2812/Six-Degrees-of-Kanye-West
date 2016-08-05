@@ -9,8 +9,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
 	<link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
-	<link rel="stylesheet" href="{{ url_for('static', filename='css/foundation.css') }}">
-	<link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/foundation.min.css') }}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/jquery-ui.theme.min.css') }}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/jquery-ui.structure.min.css') }}">
@@ -40,7 +39,7 @@
 <body>
 	<div class="row">
 		<div class="small-12 columns text-center main-box">
-			<h1><a href="{{ url_for('index') }}" class="leader-text">SIX DEGREES<br>OF<br><span class="kanye-west">KANYE WEST</span></a></h1>
+			<a href="{{ url_for('index') }}" class="leader-text"><h1>SIX DEGREES</h1><h1>OF</h1><h1><span class="kanye-west">KANYE WEST</span></h1></a>
 		</div>
 	</div>
 	{% block body %}
