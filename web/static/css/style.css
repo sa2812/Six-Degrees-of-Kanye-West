@@ -156,4 +156,11 @@ a.button, .button {
 .tagline {
   margin-top: 30px;
   margin-bottom: 0px;
+  font-size: 1.25rem;
+}
+
+@media only screen and (max-width: 1023px) {
+    .tagline {
+      font-size: 1.0625rem;
+    }
 }
