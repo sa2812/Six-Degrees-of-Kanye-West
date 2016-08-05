@@ -87,7 +87,11 @@ button:focus {
   color: #DC8B5E;
 }
 
-a:visited, a:hover {
+a:visited {
+  color: #F79C6A;
+}
+
+a h1:hover {
   color: #F79C6A;
 }
 
