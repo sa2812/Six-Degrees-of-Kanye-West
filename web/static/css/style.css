@@ -152,3 +152,8 @@ a.button, .button {
   color: #3F3F3F;
   background-color: #F79C6A;
 }
+
+.tagline {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
