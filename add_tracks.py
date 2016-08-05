@@ -12,13 +12,27 @@ def get_track(c):
 	return c.fetchone()
 
 @db_wrapper
+def get_artist_not_done(c):
+	c.execute("""SELECT kanye_degree.'id'
+				 FROM kanye_degree
+				 WHERE kanye_degree.'done'=0
+				 ORDER BY kanye_degree.'gen' ASC""")
+	return c.fetchone()
+
+@db_wrapper
 def set_track_name(c, track_name, track):
 	c.execute("""UPDATE kanye_degree
 				 SET track_name=?, track_done=1
 				 WHERE track=?""", (track_name, track))
 
+@db_wrapper
+def set_popularity(c, popularity, _id):
+	c.execute("""UPDATE kanye_degree
+				 SET popularity=?
+				 WHERE id=?""", (popularity, _id))
+
 while True:
-	track, = get_track()
-	track_name = sp.track(track)['name']
-	print track_name.encode('utf-8')
-	set_track_name(track_name, track)
+	artist_id, = get_artist_not_done()
+	popularity = sp.artist(artist_id)['popularity']
+	print artist_id
+	set_popularity(popularity, artist_id)
