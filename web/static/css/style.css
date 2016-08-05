@@ -19,7 +19,7 @@
   margin-bottom:30px;
 }
 
-h1, h2, h3, h4, p {
+h1, h2, h3, h4, h5, h6, p {
 	font-family: vcr, 'Helvetica', 'Arial';
 	color: #3F3F3F;
 }
@@ -154,6 +154,6 @@ a.button, .button {
 }
 
 .tagline {
-  padding-top: 15px;
-  padding-bottom: 15px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
