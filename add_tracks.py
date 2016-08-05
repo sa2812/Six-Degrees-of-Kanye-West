@@ -15,8 +15,7 @@ def get_track(c):
 def get_artist_not_done(c):
 	c.execute("""SELECT kanye_degree.'id'
 				 FROM kanye_degree
-				 WHERE kanye_degree.'popularity'=NULL
-				 ORDER BY kanye_degree.'gen' ASC""")
+				 WHERE kanye_degree.'popularity' is NULL""")
 	return c.fetchone()
 
 @db_wrapper
@@ -33,6 +32,6 @@ def set_popularity(c, popularity, _id):
 
 while True:
 	artist_id, = get_artist_not_done()
-	popularity = sp.artist(artist_id)['popularity']
 	print artist_id
+	popularity = sp.artist(artist_id)['popularity']
 	set_popularity(popularity, artist_id)
