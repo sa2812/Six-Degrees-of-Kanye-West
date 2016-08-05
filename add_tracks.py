@@ -15,7 +15,7 @@ def get_track(c):
 def get_artist_not_done(c):
 	c.execute("""SELECT kanye_degree.'id'
 				 FROM kanye_degree
-				 WHERE kanye_degree.'done'=0
+				 WHERE kanye_degree.'popularity'=NULL
 				 ORDER BY kanye_degree.'gen' ASC""")
 	return c.fetchone()
 
