@@ -57,11 +57,6 @@ button:focus {
     outline: none;
 }
 
-/*#submit {
-	visibility:hidden;
-	display:none;
-}*/
-
 ::selection {
   background: #f78c52; /* WebKit/Blink Browsers */
 }
@@ -91,7 +86,8 @@ button:focus {
 .track-link {
   color: #DC8B5E;
 }
-a:visited {
+
+a:visited, a:hover {
   color: #F79C6A;
 }
 
