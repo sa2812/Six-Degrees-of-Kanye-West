@@ -9,6 +9,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
 	<link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
+	<meta property="og:url" content="http://sixdegreesofkanyewest.com{% if _id %}/{{ _id }}{% endif %}" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="Find your favourite artist's Kanye number" />
+	<meta property="og:description" content="How many song features is your favourite artist from Ye?" />
+	<meta property="og:image" content="{{ url_for('static', filename='img/6.png') }} />
   	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/compiled.min.css') }}">
