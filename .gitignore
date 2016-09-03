@@ -53,3 +53,5 @@ Temporary Items
 
 test.py
 release_info_old.db
+release_info.db
+release_info_prod.db
